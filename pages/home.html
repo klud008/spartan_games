@@ -3,113 +3,46 @@
 <head>
     <!-- Page Name -->
     <title>Spartan Games - Home</title>
-    <style>
-        /* Style the body */
-        body {
-          font-family: Arial;
-          margin: 0;
-          color: #f1f1f1;
-          background: #1b1a1f;
-        }
-
-        /* Header */
-        .header {
-          width: 100%;
-          height: 70px;
-          background: #29235e;
-          color: #f1f1f1;
-        }
-
-        /* The header links (just 'log in' right now) */
-        .header a {
-          float: right;
-          text-align: center;
-          padding: 12px;
-          margin-top: 1%;
-          font-size: 20px;
-          color: #f1f1f1;
-          display: block;
-        }
-
-        /* When you mouse over the header links, change their color */
-        .header a:hover {
-          color: #818181;
-        }
-
-        /* Styles the search box in the header */
-        .header input[type=text] {
-          padding: 12px;
-          border: none;
-          margin-left: 30%;
-          margin-top: 1%;
-          font-size: 20px;
-        }
-
-        /* Styles the text typed into the search bar */
-        input.search {
-          background-color: #09080f;
-          color: white;
-        }
-
-        /* The sidebar menu */
-        .sidenav {
-          height: 100%; /* Full-height: remove this if you want "auto" height */
-          width: 160px; /* Set the width of the sidebar */
-          position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-          z-index: 2; /* Stay NEAR the top (below header) */
-          top: 1; /* Stay NEAR the top (below header) */
-          left: 0;
-          background-color: #09080f;
-          overflow-x: hidden; /* Disable horizontal scroll */
-          padding-top: 20px;
-        }
-
-        /* The navigation menu links */
-        .sidenav a {
-          padding: 6px 8px 6px 16px;
-          text-decoration: none;
-          font-size: 25px;
-          color: #f1f1f1;
-          display: block;
-        }
-
-        /* When you mouse over the navigation links, change their color */
-        .sidenav a:hover {
-          color: #818181;
-        }
-
-        /* Style page content */
-        .content {
-          margin-left: 160px; /* Same as the width of the sidebar */
-          text-align: left;
-          padding: 0px 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="homestyles.css">
 </head>
 <body>
 
 <!-- Top banner/header -->
 <div class="header">
-    <img src="logo.png" alt="Spartan Games">
+    <img src="example.png" alt="Spartan Games">
     <input type="text" class="search" placeholder="Search">
     <a href="home.html">Log in</a>
 </div>
 
 <!-- Sidebar (for navigation) -->
 <div class="sidenav">
-    <!-- <img src="insert logo path" alt="site logo" style="width:180px;height:160px;"> -->
-
     <!-- Sidebar options -->
     <a href="home.html">Home</a>
     <a href="home.html">Featured</a>
     <a href="home.html">Trending</a>
+    <a href="home.html">Upload</a>
 </div>
 
 <!-- "Welcome" section -->
 <div class="content">
     <h1>Featured</h1>
-    </div>
+</div>
+
+<!-- Scrollbar for featured -->
+<div class="scrollmenu">
+    <!-- Example 1 -->
+    <a href="">
+        <img src="images/example.png" width="200px" alt="example1" > <figcaption> example 1 </figcaption>
+    </a>
+    <!-- Example 2 -->
+    <a href="">
+        <img src="images/example.png" width="200px" alt="example2" > <figcaption> example 2 </figcaption>
+    </a>
+    <!-- Example 3 -->
+    <a href="">
+        <img src="images/example.png" width="200px" alt="example3" > <figcaption> example 3 </figcaption>
+    </a>
+</div>
 
 </body>
 </html>

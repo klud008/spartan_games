@@ -1,0 +1,98 @@
+/* Style the body */
+        body {
+          font-family: Arial;
+          margin: 0;
+          color: #f1f1f1;
+          background: #1b1a1f;
+        }
+
+        /* Header */
+        .header {
+          width: 100%;
+          height: 70px;
+          background: #29235e;
+          color: #f1f1f1;
+        }
+
+        /* The header links (just 'log in' right now) */
+        .header a {
+          float: right;
+          text-align: center;
+          padding: 12px;
+          margin-top: 1%;
+          font-size: 20px;
+          color: #f1f1f1;
+          display: block;
+        }
+
+        /* When you mouse over the header links, change their color */
+        .header a:hover {
+          color: #818181;
+        }
+
+        /* Styles the search box in the header */
+        .header input[type=text] {
+          padding: 12px;
+          border: none;
+          margin-left: 20%;
+          margin-top: 1%;
+          font-size: 20px;
+        }
+
+        /* Styles the text typed into the search bar */
+        input.search {
+          background-color: #09080f;
+          color: white;
+        }
+
+        /* The sidebar menu */
+        .sidenav {
+          height: 100%; /* Full-height: remove this if you want "auto" height */
+          width: 160px; /* Set the width of the sidebar */
+          position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+          z-index: 2; /* Stay NEAR the top (below header) */
+          top: 1; /* Stay NEAR the top (below header) */
+          left: 0;
+          background-color: #09080f;
+          overflow-x: hidden; /* Disable horizontal scroll */
+          padding-top: 20px;
+        }
+
+        /* The navigation menu links */
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #f1f1f1;
+          display: block;
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover {
+          color: #818181;
+        }
+
+        /* Style page content */
+        .content {
+          margin-left: 160px; /* Same as the width of the sidebar */
+          text-align: left;
+          padding: 0px 20px;
+        }
+
+        div.scrollmenu {
+          margin-left: 160px; /* Same as the width of the sidebar */
+          overflow: auto;
+          white-space: nowrap;
+        }
+
+        div.scrollmenu a {
+          display: inline-block;
+          color: white;
+          text-align: center;
+          padding: 14px;
+          text-decoration: none;
+        }
+
+        div.scrollmenu a:hover {
+          background-color: #777;
+        }
