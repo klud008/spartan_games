@@ -46,7 +46,6 @@
         .wrapper {
           width: 100%;
           max-width: 500px;
-          height: 100px;
           margin-left: 250px;
           margin-right: 250px;
           margin-top: auto;
@@ -137,21 +136,23 @@
           background: #555;
         }
 
+        /* UI padding to stop it from overlapping with page content */
+        .uipadding {
+          margin-top: 100px; /* Same as the height of the header */
+          margin-left: 160px; /* Same as the width of the sidebar */
+        }
+        /* Put the page content in the above to prevent UI overlap */
+
         /*---------------------------*/
         /* < PAGE-SPECIFIC CONTENT > */
         /*---------------------------*/
 
+
         /* Style page content */
         .content {
-          margin-top: 100px; /* Same as the height of the header */
-          margin-left: 160px; /* Same as the width of the sidebar */
-          text-align: left;
-          padding: 1px 20px;
+           text-align: left;
+           padding: 1px 20px;
         }
-
-        /* Note for above: you don't need to use these exact specifications, but you DO need */
-        /* to make sure the top and left margins are the same to avoid the UI covering stuff. */
-
         /* Formatting for basic content text (subtitles under game images) */
         .content a {
           display: inline-block;
@@ -199,4 +200,41 @@
           width: 300px;
           height: 220px;
           border-radius: 20px;
+        }
+
+        /* The little 'card' for the user's profile on their page */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          max-width: 500px;
+          margin-top: 50px;
+          text-align: left;
+          padding: 20px;
+          text-wrap: wrap;
+          background-color: #1a191f;
+        }
+
+        /* The user's profile pic which is displayed on their page */
+        .profileimg {
+          margin-left: -3px; /* Allows hspace to be used in the HTML doc and still have the text look nice */
+          margin-top: 0px;
+          border: 2px solid white;
+          border-radius: 20px;
+          max-width: 110px;
+          max-height: 110px;
+          float: left;
+        }
+
+        /* User's description */
+        .description {
+          color: grey;
+          font-size: 18px;
+        }
+
+        /* 'Edit profile' button */
+        .modify {
+            border-color: white;
+            border-radius: 20px;
+            background-color: #1a191f;
+            color: white;
+            padding: 8px 12px 8px 12px;
         }

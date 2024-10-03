@@ -1,34 +1,48 @@
-<!-- Starting point for creating new pages -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Page Name -->
-    <title>Spartan Games - Home</title>
-    <link rel="stylesheet" href="homestyles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="loginstyles.css">
+
 </head>
 <body>
 
+<!-- --------------------------------- -->
+<!-- ----- NAVIGATION MENUS / UI ----- -->
+<!-- --------------------------------- -->
+
 <!-- Top banner/header -->
 <div class="header">
-    <img src="images/spartan-games-logo.png" alt="Spartan Games">
-    <input type="text" class="search" placeholder="Search">
-    <a href="home.html">Log in</a>
+    <img src="images/spartan-games-logo.png" class="logo" alt="Spartan Games">
+    <div class="wrapper">
+        <div class="searchbar">
+            <input id="searchqueryinput" type="text" placeholder="Search">
+            <button id="searchquerysubmit" type="submit">
+                <img src="images/search.png" width="24px" height="24px">
+            </button>
+        </div>
+
+    </div>
+    <a href="profile.html">  <img src="images/example.png" alt="Avatar" class="avatar"> </a>
 </div>
 
-<!-- Sidebar (for navigation) -->
+<!-- Sidebar -->
 <div class="sidenav">
     <!-- Sidebar options -->
     <a href="home.html">Home</a>
     <a href="featured.html">Featured</a>
-    <a href="home.html">Trending</a>
+    <a href="trending.html">Trending</a>
+    <a href="you.html">For you</a>
     <a href="upload.html">Upload</a>
 </div>
 
+<!-- All nav stuff is above. Should be the same for every page. -->
 
-
-
-
+<!-- --------------------------------- -->
+<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
+<!-- --------------------------------- -->
 
 
 </body>
