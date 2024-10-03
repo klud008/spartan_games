@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details</title>
+    <link rel="stylesheet" href="gamepagestyles.css">
+</head>
+<header>
+    <div class="header">
+        <img src="./images/spartan-games-logo.png" alt="Spartan Games">
+        <input type="text" class="search" placeholder="Search">
+        <a href="login.html">Log in</a>
+    </div>
+
+    <div class="sidenav">
+        <!-- Sidebar options -->
+        <a href="home.html">Home</a>
+        <a href="featured.html">Featured</a>
+        <a href="home.html">Trending</a>
+        <a href="upload.html">Upload</a>
+    </div>
+</header>
+
+<body>
+    <div class="container">
+        <h1>Epic Game</h1>
+        
+        <!-- Game Information Section -->
+        <div class="game-info">
+            <div class="game-image-container"> 
+                <img src="./images/example.png" alt="Game Image" class="game-image">
+                <div class="download-section">
+                    <a href="" class="download-button">Download Game</a>
+                    <p>Available on: Windows</p>
+                </div>
+            </div>
+        </div>
+
+        <p><strong>Description:</strong> This is the game description. The game description describes the game. 👍</p>
+            <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p>
+        
+
+        <!-- Review Section -->
+        <div class="reviews-section">
+            <h2>Reviews</h2>
+
+            <!-- Existing Reviews -->
+            <div class="reviews">
+                <div class="review">
+                    <p>Bob - "Very cool game "</p>
+                    <p>Rating:⭐⭐⭐⭐☆</p>
+                </div><br>
+                <div class="review"></div>
+                    <p>Jane - "Terrible Game "</p>
+                    <p>Rating:⭐☆☆☆☆</p>
+                </div>
+                <br>
+
+                
+            </div>
+
+            
+            <h3>Add Your Review</h3>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="review-text">*Review:</label>
+                    <textarea id="review-text" name="review-text" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">*Rating:</label>
+                    <select id="rating" name="rating" required>
+                        <option value="5">👍👍👍👍👍</option>
+                        <option value="4">👍👍👍👍</option>
+                        <option value="3">👍👍👍</option>
+                        <option value="2">👍👍</option>
+                        <option value="1">👍</option>
+                    </select>
+                </div>
+                <button type="submit">Submit Review</button>
+            </form>
+            <div class="report">
+                <a href="">Report This Game</a>
+            </div>
+
+        </div>
+            
+
+    </div>
+</body>
+</html>

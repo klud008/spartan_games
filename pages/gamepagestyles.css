@@ -1,0 +1,222 @@
+body {
+    font-family: Arial;
+          margin: 0;
+          color: #f1f1f1;
+          background: #1b1a1f;
+}
+
+.container {
+  position: relative;
+  max-width: 100%;
+  margin: 50px auto;
+  padding: 50px;
+  background-color: #393939;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  margin-left: 160px;
+}
+
+h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #cccccc;
+    font-size: 14px;
+}
+
+input[type="file"],
+textarea,
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a4a4a;
+    border: 1px solid #5a5a5a;
+    border-radius: 6px;
+    color: #f0f0f0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    padding: 8px;
+}
+
+button {
+    width: 50%;
+    padding: 14px;
+    background-color: #6a6a6a;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    
+}
+
+button:hover {
+    background-color: #7a7a7a;
+}
+
+input[type="file"]:focus,
+textarea:focus,
+input[type="text"]:focus {
+    outline: none;
+    border-color: #7a7a7a;
+    
+}
+
+
+
+body {
+    font-family: Arial;
+    margin: 0;
+    color: #f1f1f1;
+    background: #25242a;
+  }
+
+  /* Header */
+  .header {
+    width: 100%;
+    height: 70px;
+    background: #162443;
+    color: #f1f1f1;
+    position: fixed; 
+    top: 0; /* Fixes it to the top of the page */
+          z-index: 10;
+  }
+
+  /* The header links (just 'log in' right now) */
+  .header a {
+    float: right;
+    text-align: center;
+    padding: 12px;
+    margin-top: 1%;
+    font-size: 20px;
+    color: #f1f1f1;
+    display: block;
+  }
+
+  /* When you mouse over the header links, change their color */
+  .header a:hover {
+    color: #818181;
+  }
+
+  .header img {
+    float: left;
+    margin-left: 10px;
+    margin-top: 2px;
+    height: 62px;
+  }
+
+  /* Styles the search box in the header */
+  .header input[type=text] {
+    padding: 12px;
+    border: none;
+    margin-left: 20%;
+    margin-top: 1%;
+    font-size: 20px;
+  }
+
+  /* Styles the text typed into the search bar */
+  input.search {
+    position: fixed;
+    background-color: #09080f;
+    color: white;
+    width: 24%;
+  }
+
+  /* The sidebar menu */
+  .sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 2; /* Stay NEAR the top (below header) */
+    top: 1; /* Stay NEAR the top (below header) */
+    left: 0;
+    background-color: #09080f;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #818181;
+  }
+
+
+  .game-info{
+    padding-left: 25%;
+  }
+  
+  .game-image{
+
+    display: inline-block;
+    border-radius: 10px;
+    max-width: 80%;
+    height: auto;
+    width: auto;
+    margin-right: 20px;
+    
+  }
+
+  .download-section{
+
+    flex-direction: column;
+    justify-content: left;
+    max-width: 40%;
+    padding: 20px;
+    border-radius: 10px;
+    padding-left: 25%;
+    text-align: left;
+    margin-top: 10px;
+
+  }
+
+  .download-button {
+    padding: 10px;
+    background-color: #6a6a6a; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 6px; 
+}
+
+.report{
+  margin-top: 50px;
+  padding: 0;
+  width: 200px;
+  height: 50px;
+  
+
+}
+
+.report a{
+  color: red;
+}
+
+
+  
+  
+
+  
+
+
+
+  
+
