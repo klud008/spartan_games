@@ -6,23 +6,18 @@
           background: #25242a;
         }
 
+        /*---------------------------*/
+        /* < NAVIGATION MENUS / UI > */
+        /*---------------------------*/
+
         /* Header */
         .header {
+          position: fixed;
+          top: 0;
           width: 100%;
-          height: 70px;
+          height: 100px;
           background: #162443;
           color: #f1f1f1;
-        }
-
-        /* The header links (just 'log in' right now) */
-        .header a {
-          float: right;
-          text-align: center;
-          padding: 12px;
-          margin-top: 1%;
-          font-size: 20px;
-          color: #f1f1f1;
-          display: block;
         }
 
         /* When you mouse over the header links, change their color */
@@ -30,26 +25,69 @@
           color: #818181;
         }
 
-        .header img {
+        .logo {
           float: left;
           margin-left: 10px;
-          margin-top: 2px;
-          height: 62px;
+          margin-top: 10px;
+          height: 80px;
         }
 
-        /* Styles the search box in the header */
-        .header input[type=text] {
-          padding: 12px;
-          border: none;
-          margin-left: 20%;
-          margin-top: 1%;
-          font-size: 20px;
+        /* Formatting for the avatar/profile picture */
+        .avatar {
+          position: fixed;
+          right: 20px;
+          top: 25px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
         }
 
-        /* Styles the text typed into the search bar */
-        input.search {
-          background-color: #09080f;
-          color: white;
+        /* This is used to contain the searchbar elements */
+        .wrapper {
+          width: 100%;
+          max-width: 500px;
+          height: 100px;
+          margin-left: 250px;
+          margin-right: 250px;
+          margin-top: auto;
+
+        }
+
+        /* Searchbar formatting stuff */
+        .searchbar {
+            width: 100%
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #searchqueryinput {
+            width: 100%;
+            margin-top: 25px;
+            height: 20px
+            background: #09080f;
+            outline: none;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 55px 15px 25px;
+            font-size: 16px;
+            background-color: #09080f;
+            color: white;
+        }
+
+        #searchquerysubmit {
+            width: 55px;
+            height: 45px;
+            position: fixed;
+            margin-top: -46px;
+            margin-left: 520px;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        #searchquerysubmit:hover {
+            cursor:pointer;
         }
 
         /* The sidebar menu */
@@ -57,8 +95,6 @@
           height: 100%; /* Full-height: remove this if you want "auto" height */
           width: 160px; /* Set the width of the sidebar */
           position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-          z-index: 2; /* Stay NEAR the top (below header) */
-          top: 1; /* Stay NEAR the top (below header) */
           left: 0;
           background-color: #09080f;
           overflow-x: hidden; /* Disable horizontal scroll */
@@ -79,11 +115,38 @@
           color: #818181;
         }
 
+         /* Scrollbar width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        /* Scrollbar track */
+        ::-webkit-scrollbar-track {
+          background: #09080f;
+          border-radius: 50px;
+        }
+
+        /* Scrollbar handle */
+        ::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 50px;
+        }
+
+        /* Scrollbar handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+
+        /*------------------*/
+        /* < PAGE CONTENT > */
+        /*------------------*/
+
         /* Style page content */
         .content {
+          margin-top: 100px; /* Same as the height of the header */
           margin-left: 160px; /* Same as the width of the sidebar */
           text-align: left;
-          padding: 0px 20px;
+          padding: 1px 20px;
         }
 
         /* Formatting for basic content text (subtitles under game images) */
@@ -98,15 +161,22 @@
         /* Highlights selectable content */
         .content a:hover {
           background-color: #777;
+          border-radius: 20px;
+        }
+
+        /* Subtitle formatting */
+        .subtitle {
+            color: white;
+            font-size: 18px;
         }
 
         /* Scroll menu - when images 'overflow,' a horizontal scroll is added rather than putting new images on a new line */
         div.scrollmenu {
-          margin-left: 160px; /* Same as the width of the sidebar */
           overflow: auto;
           white-space: nowrap;
         }
 
+        /* Content formatting for in the scroll menu */
         div.scrollmenu a {
           display: inline-block;
           color: white;
@@ -115,6 +185,15 @@
           text-decoration: none;
         }
 
+        /* Highlights selectable content in the scrollbar */
         div.scrollmenu a:hover {
           background-color: #777;
+          border-radius: 20px;
+        }
+
+        /* Basic image formatting for game images */
+        .gamepreview {
+          width: 300px;
+          height: 220px;
+          border-radius: 20px;
         }
