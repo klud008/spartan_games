@@ -232,9 +232,19 @@
 
         /* 'Edit profile' button */
         .modify {
+            float: right;
             border-color: white;
             border-radius: 20px;
             background-color: #1a191f;
             color: white;
             padding: 8px 12px 8px 12px;
+        }
+
+        .signout {
+            color: red;
+        }
+
+        .signout:hover {
+            cursor: pointer;
+            text-decoration: underline;
         }
