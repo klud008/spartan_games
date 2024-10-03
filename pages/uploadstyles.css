@@ -164,3 +164,8 @@ body {
     color: #818181;
   }
 
+
+  .delete a{
+    color: red;
+  }
+
