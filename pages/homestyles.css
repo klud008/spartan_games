@@ -137,9 +137,9 @@
           background: #555;
         }
 
-        /*------------------*/
-        /* < PAGE CONTENT > */
-        /*------------------*/
+        /*---------------------------*/
+        /* < PAGE-SPECIFIC CONTENT > */
+        /*---------------------------*/
 
         /* Style page content */
         .content {
@@ -148,6 +148,9 @@
           text-align: left;
           padding: 1px 20px;
         }
+
+        /* Note for above: you don't need to use these exact specifications, but you DO need */
+        /* to make sure the top and left margins are the same to avoid the UI covering stuff. */
 
         /* Formatting for basic content text (subtitles under game images) */
         .content a {
