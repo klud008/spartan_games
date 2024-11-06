@@ -1,12 +1,12 @@
 package group8.spartan_games_app.review;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "reviews")
 public class Review {
 
     @Id
@@ -25,6 +25,7 @@ public class Review {
     @Column(nullable = false)
     private String comment;
 
+    @CreatedDate
     @Column(nullable = false)
     private Date createdAt;
 

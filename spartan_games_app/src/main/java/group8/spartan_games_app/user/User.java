@@ -1,6 +1,7 @@
 package group8.spartan_games_app.user;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private int userId;
 
     @Column(nullable = false)
     private String username;
@@ -24,11 +25,12 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+    @CreatedDate
     @Column(nullable = false)
     private Date createdAt;
 
 
-    public User(long userId, String username, String password, String role, String email, Date createdAt) {
+    public User(int userId, String username, String password, String role, String email, Date createdAt) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -37,11 +39,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

@@ -1,12 +1,12 @@
 package group8.spartan_games_app.report;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "reports")
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +27,7 @@ public class Report {
     @Column(nullable = false)
     private String status;
 
+    @CreatedDate
     @Column(nullable = false)
     private Date createdAt;
 

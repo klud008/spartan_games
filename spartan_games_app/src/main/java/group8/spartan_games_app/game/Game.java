@@ -1,19 +1,20 @@
 package group8.spartan_games_app.game;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "games")
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long gameId;
+    private int gameId;
 
     @Column(nullable = false)
-    private long devId;
+    private int devId;
 
     @Column(nullable = false)
     private String title;
@@ -27,14 +28,16 @@ public class Game {
     @Column(nullable = false)
     private String thumbnailUrl;
 
+    @CreatedDate
     @Column(nullable = false)
     private Date createdAt;
 
+    @LastModifiedDate
     @Column(nullable = false)
     private Date updatedAt;
 
 
-    public Game(long gameId, long devId, String title, String description, String fileUrl, String thumbnailUrl, Date createdAt, Date updatedAt) {
+    public Game(int gameId, int devId, String title, String description, String fileUrl, String thumbnailUrl, Date createdAt, Date updatedAt) {
         this.gameId = gameId;
         this.devId = devId;
         this.title = title;
@@ -45,19 +48,19 @@ public class Game {
         this.updatedAt = updatedAt;
     }
 
-    public long getGameId() {
+    public int getGameId() {
         return gameId;
     }
 
-    public void setGameId(long gameId) {
+    public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 
-    public long getDevId() {
+    public int getDevId() {
         return devId;
     }
 
-    public void setDevId(long devId) {
+    public void setDevId(int devId) {
             this.devId = devId;
     }
 
