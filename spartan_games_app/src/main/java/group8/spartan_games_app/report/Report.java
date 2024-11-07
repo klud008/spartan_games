@@ -33,15 +33,16 @@ public class Report {
     @Column(nullable = false)
     private String status;
 
-    @CreatedDate
     @Column(nullable = false)
-    private Date createdAt;
+    private String createdAt;
 
     @Column(nullable = false)
-    private Date resolvedAt;
+    private String resolvedAt;
 
 
-    public Report(long reviewId, long userId, long contentId, String contentType, String reason, String status, Date createdAt, Date resolvedAt) {
+    public Report() {}
+
+    public Report(long reviewId, long userId, long contentId, String contentType, String reason, String status, String createdAt, String resolvedAt) {
         this.reportId = reviewId;
         this.userId = userId;
         this.contentId = contentId;
@@ -100,19 +101,19 @@ public class Report {
         this.status = status;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getResolvedAt() {
+    public String getResolvedAt() {
         return resolvedAt;
     }
 
-    public void setResolvedAt(Date resolvedAt) {
+    public void setResolvedAt(String resolvedAt) {
         this.resolvedAt = resolvedAt;
     }
 
