@@ -32,12 +32,12 @@ public class UserController {
 
     /**
      * Create a new User entry.
-     * http://localhost:8080/new_user
+     * http://localhost:8080/api/users/new_user
      *
      * @param user the new Review object.
      */
     @PostMapping("/new_user")
-    public List<User> addNewUser(User user) {
+    public List<User> addNewUser(@RequestBody User user) {
         userService.addNewUser(user);
         return userService.getAllUsers();
     }

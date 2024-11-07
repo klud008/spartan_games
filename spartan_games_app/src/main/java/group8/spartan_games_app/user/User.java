@@ -1,8 +1,9 @@
 package group8.spartan_games_app.user;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,24 +26,33 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @CreatedDate
     @Column(nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @CreatedDate
     @Column(nullable = false)
     private String accountStatus;
 
 
-    public User(int userId, String username, String password, String role, String email, Date createdAt, String accountStatus) {
+    public User(int userId, String username, String password, String role, String email, String accountStatus) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.role = role;
         this.email = email;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
         this.accountStatus = accountStatus;
     }
+
+    public User(String username, String password, String role, String email, String accountStatus) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+        this.createdAt = LocalDateTime.now();
+        this.accountStatus = accountStatus;
+    }
+
+    public User() {}
 
     public int getUserId() {
         return userId;
@@ -84,11 +94,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
