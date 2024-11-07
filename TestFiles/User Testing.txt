@@ -1,0 +1,36 @@
+On Postman:
+
+VIEW GAMES
+Get: 
+http://localhost:8080/games/all
+
+
+NEW USER
+Post: 
+http://localhost:8080/api/users/new_user
+
+Body ---> form-data:
+Keys: username, password, role, email, accountStatus
+
+
+UPDATE USER
+Put:
+http://localhost:8080/api/users/{userId}
+
+Body ---> form-data:
+Keys: username, password, role, email, accountStatus
+(any of the above can be null)
+
+
+POST REVIEW:
+Post:
+http://localhost:8080/report
+{
+    "userId" : 1,
+    "contentId" : 2,
+    "contentType" : "game",
+    "reason" : "literally a virus",
+    "status" : "pending",
+    "createdAt" : "now",
+    "resolvedAt" : "not yet"
+}

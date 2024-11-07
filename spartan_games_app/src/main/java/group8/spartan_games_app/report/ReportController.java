@@ -3,6 +3,7 @@ package group8.spartan_games_app.report;
 import group8.spartan_games_app.game.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class ReportController {
      * @param report the new Report object.
      */
     @PostMapping("/report")
-    public List<Report> addNewReport(Report report) {
+    public List<Report> addNewReport(@RequestBody Report report) {
         service.addNewReport(report);
         return service.getAllReports();
     }
