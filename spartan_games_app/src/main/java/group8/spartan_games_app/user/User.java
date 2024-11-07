@@ -29,14 +29,19 @@ public class User {
     @Column(nullable = false)
     private Date createdAt;
 
+    @CreatedDate
+    @Column(nullable = false)
+    private String accountStatus;
 
-    public User(int userId, String username, String password, String role, String email, Date createdAt) {
+
+    public User(int userId, String username, String password, String role, String email, Date createdAt, String accountStatus) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.role = role;
         this.email = email;
         this.createdAt = createdAt;
+        this.accountStatus = accountStatus;
     }
 
     public int getUserId() {
@@ -86,4 +91,8 @@ public class User {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getAccountStatus() { return accountStatus; }
+
+    public void setAccountStatus(String accountStatus) { this.accountStatus = accountStatus; }
 }

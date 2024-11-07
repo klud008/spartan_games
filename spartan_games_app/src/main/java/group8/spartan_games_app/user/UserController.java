@@ -8,10 +8,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService service;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    // GET all users (for viewing user list)
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    // GET user by ID
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
+    }
 
     /**
      * Create a new User entry.
@@ -21,7 +38,25 @@ public class UserController {
      */
     @PostMapping("/new_user")
     public List<User> addNewUser(User user) {
-        service.addNewUser(user);
-        return service.getAllUsers();
+        userService.addNewUser(user);
+        return userService.getAllUsers();
+    }
+
+    // PUT update a user's role or account status (e.g., ban or unban)
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
+    // DELETE remove a user
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+    }
+
+    // GET all users by role
+    @GetMapping("/role/{role}")
+    public List<User> getUsersByRole(@PathVariable String role) {
+        return userService.getUsersByRole(role);
     }
 }
