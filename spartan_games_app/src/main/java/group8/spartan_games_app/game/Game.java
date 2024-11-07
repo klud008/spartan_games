@@ -1,10 +1,19 @@
 package group8.spartan_games_app.game;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "games")
@@ -22,28 +31,41 @@ public class Game {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private String fileUrl;
+    @Lob 
+    @Column(name = "game_file", nullable = false, columnDefinition = "LONGBLOB")
+    private byte[] fileData;
 
-    @Column(nullable = false)
-    private String thumbnailUrl;
+    @Lob
+    @Column(name = "thumbnail", nullable = false, columnDefinition = "LONGBLOB")
+    private byte[] thumbnailData;
+
+    @Column(name = "game_file_name", nullable = false)
+    private String gameFileName;
+
+    @Column(name = "thumbnail_file_name", nullable = false)
+    private String thumbnailFileName;
+
 
     @CreatedDate
-    @Column(nullable = false)
-    private Date createdAt;
+    @Column(nullable = false, updatable= false)
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
 
-    public Game(int gameId, int devId, String title, String description, String fileUrl, String thumbnailUrl, Date createdAt, Date updatedAt) {
+    public Game() {
+        
+    }
+
+    public Game(int gameId, int devId, String title, String description, byte[] fileData, byte[] thumbnailData,  String gameFileName, String thumbnailFileName, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.gameId = gameId;
         this.devId = devId;
         this.title = title;
         this.description = description;
-        this.fileUrl = fileUrl;
-        this.thumbnailUrl = thumbnailUrl;
+        this.fileData = fileData;
+        this.thumbnailData = thumbnailData;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -80,35 +102,54 @@ public class Game {
         this.description = description;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
+    @JsonIgnore
+    public byte[] getGameFile() {
+        return fileData;
     }
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
+    public void setGameFile(byte[] fileData) {
+        this.fileData = fileData;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    @JsonIgnore
+    public byte[] getThumbnailName() {
+        return thumbnailData;
     }
 
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public void setThumbnailData(byte[] thumbnailData) {
+        this.thumbnailData = thumbnailData;
     }
 
-    public Date getCreatedAt() {
+    public String getGameFileName() {
+        return gameFileName;
+    }
+
+    public void setGameFileName(String gameFileName) {
+        this.gameFileName = gameFileName;
+    }
+
+    public String getThumbnailFileName() {
+        return thumbnailFileName;
+    }
+
+    public void setThumbnailFileName(String thumbnailFileName) {
+        this.thumbnailFileName = thumbnailFileName;
+    }
+
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

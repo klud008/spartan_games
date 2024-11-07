@@ -1,9 +1,12 @@
 package group8.spartan_games_app.game;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * GameService.java
@@ -50,7 +53,28 @@ public class GameService {
      *
      * @param game the new Game to add.
      */
-    public void addNewGame(Game game) {
+    public void addNewGame(String title, String description, int devId, MultipartFile gameFile, MultipartFile thumbnailFile, String gameFileName, String thumbnailFileName) throws IOException {
+
+        Game game = new Game();
+
+
+        game.setTitle(title);
+        game.setDescription(description);
+        game.setDevId(devId);
+
+        game.setCreatedAt(LocalDateTime.now());
+        game.setUpdatedAt(LocalDateTime.now());
+        game.setGameFileName(gameFileName);  
+        game.setThumbnailFileName(thumbnailFileName);
+
+        if (gameFile != null && !gameFile.isEmpty()) {
+            game.setGameFile(gameFile.getBytes());
+        }
+
+        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+            game.setThumbnailData(thumbnailFile.getBytes());
+        }
+
         gameRepository.save(game);
     }
 
@@ -60,14 +84,32 @@ public class GameService {
      * @param gameId the unique Game Id.
      * @param game   the new Game details.
      */
-    public void updateGame(int gameId, Game game) {
+    public void updateGame(int gameId, String title, String description, MultipartFile gameFile, MultipartFile thumbnailFile) throws IOException  {
+        
         Game existing = getGameById(gameId);
-        existing.setTitle(game.getTitle());
-        existing.setDescription(game.getDescription());
-        existing.setFileUrl(game.getFileUrl());
-        existing.setThumbnailUrl(game.getThumbnailUrl());
+        if (existing == null) {
+            throw new IllegalArgumentException("Game with ID " + gameId + " doesn't exist");
+        }
 
-        //Technically the 4 lines above are not necessary because the save method merges by default.
+        if (title != null && !title.isEmpty()) {
+            existing.setTitle(title);
+        }
+
+        if (description != null && !description.isEmpty()) {
+            existing.setDescription(description);
+        }
+
+        if (gameFile != null && !gameFile.isEmpty()) {
+            existing.setGameFile(gameFile.getBytes());
+            existing.setGameFileName(gameFile.getOriginalFilename());
+        }
+
+        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+            existing.setThumbnailData(thumbnailFile.getBytes());
+            existing.setThumbnailFileName(thumbnailFile.getOriginalFilename());
+        }
+
+
         gameRepository.save(existing);
     }
 

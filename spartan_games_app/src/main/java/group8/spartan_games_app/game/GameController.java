@@ -1,12 +1,25 @@
 package group8.spartan_games_app.game;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  * GameController.java.
@@ -20,7 +33,7 @@ public class GameController {
     private GameService service;
 
     /**
-     * Get a list of all Animals in the database.
+     * Get a list of all Games in the database.
      * http://localhost:8080/games/all
      *
      * @return a list of Games  objects.
@@ -61,22 +74,44 @@ public class GameController {
      * http://localhost:8080/games/upload_game
      *
      * @param game the new Game object.
+     * @throws IOException 
      */
     @PostMapping("/upload_game")
-    public List<Game> addNewGame(Game game) {
-        service.addNewGame(game);
+        public List<Game> addNewGame(@RequestParam("title") String title,
+        @RequestParam("description") String description,
+        @RequestParam("devId") int devId,
+        @RequestParam("gameFile") MultipartFile gameFile,
+        @RequestParam("thumbnailFile") MultipartFile thumbnailFile) throws IOException{
+
+
+        String gameFileName = gameFile.getOriginalFilename();
+        String thumbnailFileName = thumbnailFile.getOriginalFilename();
+
+        service.addNewGame(title, description, devId, gameFile, thumbnailFile, gameFileName, thumbnailFileName);
+        
+
         return service.getAllGames();
     }
+    
+    
 
     /**
      * Performs the update
      * @param game
      * @return
-     */
-    @PutMapping("/update/{gameId}")
-    public List<Game> updateGame(@PathVariable int gameId, @RequestBody Game game) {
-        service.updateGame(gameId, game);
-        return service.getAllGames();
+          * @throws IOException 
+          */
+         @PutMapping("/update/{gameId}")
+         public Game updateGame(@PathVariable int gameId,
+         @RequestParam(value = "title", required = false) String title,
+         @RequestParam(value = "description", required = false) String description,
+         @RequestParam(value = "gameFile", required = false) MultipartFile gameFile,
+         @RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile) throws IOException{
+        
+
+        service.updateGame(gameId, title, description, gameFile, thumbnailFile);
+
+        return service.getGameById(gameId);
     }
 
     /**
@@ -86,6 +121,40 @@ public class GameController {
      * @param gameId the unique Game Id.
      * @return the updated list of Games.
      */
+
+
+     @GetMapping("/download/{gameId}")
+    public ResponseEntity<Resource> downloadGameFile(@PathVariable int gameId) {
+        // Fetch the game by its ID
+        Game game = service.getGameById(gameId);
+        if (game.getGameFile() == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        byte[] gameFileData = game.getGameFile();
+
+        ByteArrayResource gameFile = new ByteArrayResource(gameFileData);
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + game.getGameFileName() + "\"");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/zip");
+        headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(gameFileData.length));
+
+
+        return ResponseEntity.ok()
+            .headers(headers)
+            .contentLength(gameFileData.length)
+            .body(gameFile);
+
+    }
+
+
+    
+
+
+
+
     @DeleteMapping("/delete/{gameId}")
     public List<Game> deleteGameById(@PathVariable int gameId) {
         service.deleteGameById(gameId);
