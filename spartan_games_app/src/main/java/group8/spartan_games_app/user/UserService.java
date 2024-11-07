@@ -20,6 +20,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getUserById(int userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
     /**
      * Add a new User to the database.
      *
@@ -27,5 +32,20 @@ public class UserService {
      */
     public void addNewUser(User user) {
         userRepository.save(user);
+    }
+
+    public User updateUser(int userId, User updatedUser) {
+        User user = getUserById(userId);
+        user.setAccountStatus(updatedUser.getAccountStatus());
+        user.setRole(updatedUser.getRole());
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(int userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public List<User> getUsersByRole(String role) {
+        return userRepository.findByRole(role);
     }
 }
