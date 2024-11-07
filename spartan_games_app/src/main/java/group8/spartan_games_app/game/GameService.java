@@ -118,6 +118,7 @@ public class GameService {
             existing.setThumbnailFileName(thumbnailFile.getOriginalFilename());
         }
 
+        existing.setUpdatedAt(LocalDateTime.now());
 
         gameRepository.save(existing);
     }
