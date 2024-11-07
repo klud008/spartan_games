@@ -1,9 +1,10 @@
 package group8.spartan_games_app.review;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ReviewService {
@@ -26,6 +27,14 @@ public class ReviewService {
      * @param review the new Review to add.
      */
     public void addNewReview(Review review) {
+        
+        if (review.getCreatedAt() == null) {
+            review.setCreatedAt(LocalDateTime.now());
+        }
         reviewRepository.save(review);
+    }
+
+    public List<Review> getReviewsByGameId(long gameId) {
+        return reviewRepository.findByGameId(gameId);
     }
 }

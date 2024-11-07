@@ -1,9 +1,15 @@
 package group8.spartan_games_app.review;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.CreatedDate;
 
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reviews")
@@ -11,7 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long reviewId;
+    private int reviewId;
 
     @Column(nullable = false)
     private long userId;
@@ -25,25 +31,28 @@ public class Review {
     @Column(nullable = false)
     private String comment;
 
+    
     @CreatedDate
-    @Column(nullable = false)
-    private Date createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
+    public Review() {
 
-    public Review(long reviewId, long userId, long gameId, int rating, String comment, Date createdAt) {
+    }
+
+    public Review(int reviewId, long userId, long gameId, int rating, String comment) {
         this.reviewId = reviewId;
         this.userId = userId;
         this.gameId = gameId;
         this.rating = rating;
         this.comment = comment;
-        this.createdAt = createdAt;
     }
 
     public long getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(long reviewId) {
+    public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
 
@@ -79,11 +88,11 @@ public class Review {
         this.comment = comment;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

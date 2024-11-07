@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import group8.spartan_games_app.review.Review;
+import group8.spartan_games_app.review.ReviewService;
+
 
 /**
  * GameController.java.
@@ -31,6 +34,9 @@ public class GameController {
 
     @Autowired
     private GameService service;
+
+    @Autowired
+    private ReviewService reviewService;
 
     /**
      * Get a list of all Games in the database.
@@ -120,13 +126,7 @@ public class GameController {
         return service.getGameById(gameId);
     }
 
-    /**
-     * Delete a Game object.
-     * http://localhost:8080/games/delete/2
-     *
-     * @param gameId the unique Game Id.
-     * @return the updated list of Games.
-     */
+    
 
 
      @GetMapping("/download/{gameId}")
@@ -155,11 +155,21 @@ public class GameController {
 
     }
 
-
+    @GetMapping("/reviews/{gameId}")
+    public List<Review> getMethodName(@PathVariable long gameId) {
+        
+        return reviewService.getReviewsByGameId(gameId);
+    }
     
 
 
-
+    /**
+     * Delete a Game object.
+     * http://localhost:8080/games/delete/2
+     *
+     * @param gameId the unique Game Id.
+     * @return the updated list of Games.
+     */
 
     @DeleteMapping("/delete/{gameId}")
     public List<Game> deleteGameById(@PathVariable int gameId) {
