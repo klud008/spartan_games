@@ -57,6 +57,12 @@ public class GameController {
         return service.getGameById(gameId);
     }
 
+    @GetMapping("/developer/{devId}")
+    public List<Game> getByDeveloper(@PathVariable int devId) {
+        return service.getGameByDev(devId);
+    }
+
+
     /**
      * Get a list of Games based on the searched name.
      * http://localhost:8080/games/title_search?name=

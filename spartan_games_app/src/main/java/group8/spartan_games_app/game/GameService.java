@@ -39,6 +39,15 @@ public class GameService {
     }
 
     /**
+     * Fetch games by given developer
+     * 
+     */
+
+     public List<Game> getGameByDev(int devId) {
+        return gameRepository.findByDevId(devId);
+    }
+
+    /**
      * Fetch all games whose title matches the search term.
      *
      * @param keyword the search key.
