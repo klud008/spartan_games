@@ -39,18 +39,29 @@ public class UserController {
      * Create a new User entry.
      * http://localhost:8080/api/users/new_user
      *
-     * @param user the new Review object.
      */
     @PostMapping("/new_user")
-    public List<User> addNewUser(@RequestBody User user) {
-        userService.addNewUser(user);
+    public List<User> addNewUser(@RequestParam("username") String username,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("role") String role,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("accountStatus") String accountStatus) {
+        userService.addNewUser(username, password, role, email, accountStatus);
         return userService.getAllUsers();
     }
 
     // PUT update a user's role or account status (e.g., ban or unban)
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    @PutMapping("/{userId}")
+    public User updateUser(@PathVariable int userId,
+                           @RequestParam(value = "username", required = false) String username,
+                           @RequestParam(value = "password", required = false) String password,
+                           @RequestParam(value = "role", required = false) String role,
+                           @RequestParam(value = "email", required = false) String email,
+                           @RequestParam(value = "accountStatus", required = false) String accountStatus) {
+
+        userService.updateUser(userId, username, password, role, email, accountStatus);
+
+        return userService.getUserById(userId);
     }
 
     // DELETE remove a user

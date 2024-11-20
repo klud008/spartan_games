@@ -1,10 +1,9 @@
 package group8.spartan_games_app.report;
 
 import group8.spartan_games_app.game.Game;
+import group8.spartan_games_app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,10 +12,16 @@ import java.util.List;
  * Includes all REST API endpoint mappings for the Game object.
  */
 @RestController
+@RequestMapping("/reports")
 public class ReportController {
 
     @Autowired
     private ReportService service;
+
+    @GetMapping("/all")
+    public List<Report> getAllReports() {
+        return service.getAllReports();
+    }
 
     /**
      * Create a new Report entry.
@@ -24,8 +29,8 @@ public class ReportController {
      *
      * @param report the new Report object.
      */
-    @PostMapping("/report")
-    public List<Report> addNewReport(Report report) {
+    @PostMapping("/new")
+    public List<Report> addNewReport(@RequestBody Report report) {
         service.addNewReport(report);
         return service.getAllReports();
     }

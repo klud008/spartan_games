@@ -2,6 +2,7 @@ package group8.spartan_games_app.review;
 
 import java.util.List;
 
+import group8.spartan_games_app.report.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,11 @@ public class ReviewController {
 
     @Autowired
     private ReviewService service;
+
+    /*@GetMapping("/all")
+    public List<Review> getAllReviews() {
+        return service.getAllReviews();
+    }*/
 
     /**
      * Create a new Review entry.
