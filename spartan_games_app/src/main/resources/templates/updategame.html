@@ -24,13 +24,13 @@
         </div>
 
     </div>
-    <a href="profile.html">  <img src="images/example.png" alt="Avatar" class="avatar"> </a>
+    <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
 </div>
 
 <!-- Sidebar -->
 <div class="sideav">
     <!-- Sidebar options -->
-    <a th:href="@{/new-home}" class="active">Home</a>
+    <a th:href="@{/games/home " class="active">Home</a>
     <a th:href="@{/featured}">Featured</a>
     <a th:href="@{/trending}">Trending</a>
     <a th:href="@{/you}">For you</a>

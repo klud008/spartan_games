@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import group8.spartan_games_app.review.Review;
 import group8.spartan_games_app.review.ReviewService;
+import group8.spartan_games_app.user.User;
+import group8.spartan_games_app.user.UserService;
 
 
 /**
@@ -38,6 +40,9 @@ public class GameController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private UserService userService;
 
     /*
     http://localhost:8080/games/home 
@@ -84,9 +89,12 @@ public class GameController {
     @GetMapping("/developer/{devId}")
     public String  getByDeveloper(@PathVariable int devId, Model model) {
 
+        User developer = userService.getUserById(devId);
+
         List<Game> developerGames = service.getGameByDev(devId);
 
         model.addAttribute("games", developerGames);
+        model.addAttribute("developer", developer);
 
         return "profile";
     }

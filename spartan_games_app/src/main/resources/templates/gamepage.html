@@ -23,18 +23,18 @@
         </div>
 
     </div>
-    <a href="profile.html">  <img src="images/example.png" alt="Avatar" class="avatar"> </a>
+    <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
 </div>
 
 <!-- Sidebar -->
-<div class="sideav">
+<div class="sidenav">
     <!-- Sidebar options -->
-    <a th:href="@{/new-home}" class="active">Home</a>
+    <a th:href="@{/games/home }" class="active">Home</a>
     <a th:href="@{/featured}">Featured</a>
     <a th:href="@{/trending}">Trending</a>
     <a th:href="@{/you}">For you</a>
     <a th:href="@{/games/upload_game}">Upload</a>
-  </div>
+</div>
 
 <!-- All nav stuff is above. Should be the same for every page. -->
 
@@ -45,6 +45,7 @@
 <body>
 <div class="uipadding">
     <div class="container">
+        <div class = "edit"> UPDATE</div>
         <h1 th:text="${game.title}">Epic Game</h1>
         
         <!-- Game Information Section -->
@@ -58,8 +59,9 @@
             </div>
         </div>
 
-        <p><strong>Description:</strong> <span th:text="${game.description}">This is the game description.</span></p>
-            <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p>
+       <p><strong>Description:</strong> <span th:text="${game.description}">This is the game description.</span></p>
+            <!---- <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p> 
+    -->
         
 
         <!-- Review Section -->

@@ -24,18 +24,18 @@
         </div>
 
     </div>
-    <a href="profile.html">  <img src="images/example.png" alt="Avatar" class="avatar"> </a>
+    <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
 </div>
 
 <!-- Sidebar -->
-<div class="sideav">
+<div class="sidenav">
     <!-- Sidebar options -->
-    <a th:href="@{/new-home}" class="active">Home</a>
+    <a th:href="@{/games/home }" class="active">Home</a>
     <a th:href="@{/featured}">Featured</a>
     <a th:href="@{/trending}">Trending</a>
     <a th:href="@{/you}">For you</a>
-    <a th:href="@{/games//upload_game}">Upload</a>
-  </div>
+    <a th:href="@{/games/upload_game}">Upload</a>
+</div>
 
 <!-- All nav stuff is above. Should be the same for every page. -->
 
@@ -48,23 +48,27 @@
 <div class="uipadding">
     <div class="container">
         <h1>Upload Your Game</h1>
-        <form id="upload-form" th:action="@{/upload_game}" method="post" enctype="multipart/form-data">
+        <form id="upload-form" th:action="@{/games/upload_game}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">*Game Title:</label>
+                <input type="text" id="title" name="title" required placeholder="Enter game title" />
+            </div>
             <div class="form-group">
                 <label for="game-file">*Game File:</label>
-                <input type="file" id="game-file" name="game-file" accept=".zip" required>
+                <input type="file" id="game-file" name="gameFile" accept=".zip" required>
             </div>
             <div class="form-group">
                 <label for="image-file">*Game Image:</label>
-                <input type="file" id="image-file" name="image-file" accept="image/*" required>
+                <input type="file" id="image-file" name="thumbnailFile" accept="image/*" required>
             </div>
             <div class="form-group">
                 <label for="description">*Description:</label>
                 <textarea id="description" name="description" rows="5" required></textarea>
             </div>
-            <!--<div class="form-group">
-                <label for="tags">Tags:</label>
-                <input type="text" id="tags" name="tags" placeholder="e.g. adventure, action, etc.">
-            </div>-->
+            <div class="form-group">
+                <label for="devId">Developer ID:</label>
+                <input type="text" id="devId" name="devId" value="1" readonly />
+            </div>
             <button type="submit">Upload Game</button>
         </form>
     </div>
