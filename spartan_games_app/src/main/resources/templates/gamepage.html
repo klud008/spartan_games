@@ -45,7 +45,8 @@
 <body>
 <div class="uipadding">
     <div class="container">
-        <div class = "edit"> UPDATE</div>
+        <a th:href="@{/games/update/{gameId}(gameId=${game.gameId})}" class="edit">UPDATE</a>
+        <a th:href="@{/games/delete/{gameId}(gameId=${game.gameId})}" class="delete">DELETE</a>
         <h1 th:text="${game.title}">Epic Game</h1>
         
         <!-- Game Information Section -->
@@ -70,12 +71,12 @@
 
             <!-- Existing Reviews -->
             <div class="reviews" th:each="review : ${reviews}">
-                <div class="review">
-                    <p th:text="${review.author}">Reviewer Id</p> 
-                    <p th:text="${review.content}">Review Body</p> 
-                    <p>Rating: <span th:text="${review.rating}">⭐⭐⭐⭐☆</span></p> 
-                </div>
-                <br>
+            <div class="review">
+                <p><strong>Reviewer: </strong><span th:text="${review.userId}">Reviewer Name</span></p> 
+                <p><strong>Review:</strong> <span th:text="${review.comment}">Review Body</span></p> 
+                <p><strong>Rating: </strong><span th:text="${review.rating}">⭐⭐⭐⭐☆</span></p>
+            </div>
+            <br>
             </div>
 
             

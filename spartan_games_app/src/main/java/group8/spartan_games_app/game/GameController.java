@@ -12,11 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -141,25 +139,49 @@ public class GameController {
         return "redirect:/games/developer/" + devId;
     }
     
-    
 
+
+    /**
+     * Updates
+     * http://localhost:8080/games/update/{gameId}
+     *
+     * @param game the new Game object.
+     * @throws IOException 
+     */
+
+        @GetMapping("/update/{gameId}")
+        public String showUpdateForm(@PathVariable int gameId, Model model) {     
+            model.addAttribute("game", service.getGameById(gameId));
+            return "updategame"; 
+    }
+    
     /**
      * Performs the update
      * @param game
      * @return
-          * @throws IOException 
           */
-         @PutMapping("/update/{gameId}")
-         public Game updateGame(@PathVariable int gameId,
+         @PostMapping("/update")
+         public String updateGame(@RequestParam("gameId") int gameId,
          @RequestParam(value = "title", required = false) String title,
          @RequestParam(value = "description", required = false) String description,
          @RequestParam(value = "gameFile", required = false) MultipartFile gameFile,
          @RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile) throws IOException{
+           
+            Game game = new Game(); 
+            game.setGameId(gameId);
+
+            if (title != null && !title.isEmpty()) {
+                game.setTitle(title);
+            }
+            if (description != null && !description.isEmpty()) {
+                game.setDescription(description);
+            }
+
+            
         
+            service.updateGame(game.getGameId(), game.getTitle(), game.getDescription(), gameFile, thumbnailFile);
 
-        service.updateGame(gameId, title, description, gameFile, thumbnailFile);
-
-        return service.getGameById(gameId);
+            return "redirect:/games/" + game.getGameId();
     }
 
     
@@ -207,9 +229,11 @@ public class GameController {
      * @return the updated list of Games.
      */
 
-    @DeleteMapping("/delete/{gameId}")
-    public List<Game> deleteGameById(@PathVariable int gameId) {
+    @GetMapping("/delete/{gameId}")
+    public String deleteGameById(@PathVariable int gameId) {
+        Game game = service.getGameById(gameId);
+        int devId = game.getDevId();
         service.deleteGameById(gameId);
-        return service.getAllGames();
+         return "redirect:/games/developer/" + devId;
     }
 }
