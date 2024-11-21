@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
+
+    <!-- th:href="@{/styles/styles.css}" -->
+    <!-- href="/static/styles/styles.css" -->
+
+</head>
+<body>
+
+<!-- Top banner/header -->
+<div class="header">
+    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+    <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">  <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="avatar"> </a>
+</div>
+
+<!-- Topnav -->
+<div class="topnav">
+    <!-- Topnav options -->
+    <a href="/games/all" class="active">Home</a>
+    <a href="featured.html">Featured</a>
+    <a href="trending.html">Trending</a>
+    <a href="you.html">For you</a>
+    <a href="upload.html">Upload</a>
+</div>
+
+<!-- Image gallery stuff -->
+<div class="responsive" data-th-each="game: ${gamesList}">
+    <div class="gallery">
+        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
+            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
+        </a>
+        <div class="desc" data-th-text="${game.title}"></div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+</body>
+</html>

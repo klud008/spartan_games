@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
+
+    <!-- th:href="@{/styles/styles.css}" -->
+    <!-- href="/static/styles/styles.css" -->
+
+</head>
+<body>
+
+<!-- Top banner/header -->
+<div class="header">
+    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+</div>
+
+<!-- Topnav -->
+<div class="topnav">
+    <!-- Topnav options -->
+    <a href="/games/all">Home</a>
+    <a href="featured.html">Featured</a>
+    <a href="trending.html">Trending</a>
+    <a href="you.html">For you</a>
+    <a href="upload.html">Upload</a>
+</div>
+
+<!-- Just the message lol -->
+<h1>You don't have permission to access this page. Sorry!</h1>
+
+</body>
+</html>

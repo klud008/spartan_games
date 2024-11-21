@@ -2,14 +2,20 @@ package group8.spartan_games_app.game;
 
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
+import group8.spartan_games_app.user.User;
+import group8.spartan_games_app.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +34,15 @@ import group8.spartan_games_app.review.ReviewService;
  * GameController.java.
  * Includes all REST API endpoint mappings for the Game object.
  */
-@RestController
+@Controller
 @RequestMapping("/games")
 public class GameController {
 
     @Autowired
     private GameService service;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ReviewService reviewService;
@@ -46,8 +55,24 @@ public class GameController {
      *
      */
     @GetMapping("/all")
-    public List<Game> getAllGames() {
-        return service.getAllGames();
+    //public List<Game> getAllGames() {
+    public String getAllGames(Model model) {
+        //return service.getAllGames();
+
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.getUserByUsername(name);
+        int currentUserId = currentUser.getUserId();
+
+        if (currentUser.getThumbnailData() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(currentUser.getThumbnailData());
+            model.addAttribute("thumbnailData", base64Image);
+        } else {
+            model.addAttribute("thumbnailData", null);
+        }
+
+        model.addAttribute("user", userService.getUserById(currentUserId));
+        model.addAttribute("gamesList", service.getAllGames());
+        return "home";
     }
 
     /**

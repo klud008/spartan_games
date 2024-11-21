@@ -1,0 +1,257 @@
+/*---------------------------*/
+/* < NAVIGATION MENUS / UI > */
+/*---------------------------*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: #f1f1f1;
+    background: #25242a;
+}
+
+/* Add a black background color to the top navigation bar */
+.header {
+    overflow: hidden;
+    background-color: #162443;
+}
+
+/* Style the search box inside the navigation bar */
+.header input[type=text] {
+    float: left;
+    padding: 12px 12px 12px 40px;
+    background-color: #09080f;
+    border: none;
+    border-radius: 12px;
+    margin-top: 24px;
+    margin-left: 40px;
+    font-size: 17px;
+    color: white;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+    .header a, .header input[type=text] {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+    .header input[type=text] {
+        border: 1px solid #ccc;
+    }
+
+    .avatar {
+        float: left;
+    }
+}
+
+#searchQuery {
+    background-image: url('/images/search.png'); /* Add a search icon to input */
+    background-size: 20px;
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+}
+
+.logo {
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 80px;
+}
+
+/* Formatting for the avatar/profile picture */
+.avatar {
+    float: right;
+    margin: 22px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #09080f;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #e29c00;
+  color: white;
+}
+
+/* Style page content */
+.content {
+    text-align: left;
+    padding: 1px 20px;
+}
+/* Formatting for basic content text (subtitles under game images) */
+.content a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+/*------------------*/
+/* < GAME DISPLAY > */
+/*------------------*/
+/* Image gallery (for game display */
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*----------------*/
+/* < LOGIN PAGE > */
+/*----------------*/
+
+.container {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 50px;
+  background-color: #1a191f;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input, .form-group textarea {
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 4px;
+    background-color: #25242a;
+    padding: 12px;
+    color: #f1f1f1;
+    display: block;
+    resize: vertical;
+    width: 100%;
+}
+
+.sign-up-option {
+    margin-bottom: 25px;
+    float: right;
+}
+
+.submitButton {
+    color: #25242a;
+    border-color #25242a;
+    border-radius: 4px;
+}
+
+/*----------------*/
+/* < PROFILE PAGE > */
+/*----------------*/
+/* The little 'card' for the user's profile on their page */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin-top: 50px;
+    text-align: left;
+    padding: 20px;
+    text-wrap: wrap;
+    background-color: #1a191f;
+}
+
+/* The user's profile pic which is displayed on their page */
+.profileimg {
+    margin-left: -3px; /* Allows hspace to be used in the HTML doc and still have the text look nice */
+    margin-top: 0px;
+    margin-right: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    width: 110px;
+    height: 110px;
+    float: left;
+}
+
+/* User's description */
+.description {
+    color: grey;
+    font-size: 18px;
+}
+
+/* 'Edit profile' button */
+.modify {
+    float: right;
+    border-color: white;
+    border-radius: 20px;
+    background-color: #1a191f;
+    color: white;
+    padding: 8px 12px 8px 12px;
+}
+
+.sign-out {
+    color: red;
+}
+
+.sign-out:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
