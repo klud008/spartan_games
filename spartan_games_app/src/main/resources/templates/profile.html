@@ -29,7 +29,7 @@
 <!-- Sidebar -->
 <div class="sidenav">
     <!-- Sidebar options -->
-    <a th:href="@{/new-home}" class="active">Home</a>
+    <a th:href="@{/games/home }" class="active">Home</a>
     <a th:href="@{/featured}">Featured</a>
     <a th:href="@{/trending}">Trending</a>
     <a th:href="@{/you}">For you</a>
@@ -56,23 +56,19 @@
       </div>
     </div>
 
-    <!-- User's published games -->
-    <h1>Goober Johnson's published games</h1>
+    
 
-    <!-- Example 1 -->
-    <a href="gamepage.html">
-      <img src="images/placeholder-2.png" class="gamepreview" alt="example1" > <figcaption class="subtitle"> example 1 </figcaption>
-    </a>
-    <!-- Example 2 -->
-    <a href="gamepage.html">
-      <img src="images/placeholder-2.png" class="gamepreview" alt="example2" > <figcaption class="subtitle"> example 2 </figcaption>
-    </a>
-    <!-- Example 3 -->
-    <a href="gamepage.html">
-      <img src="images/placeholder-2.png" class="gamepreview" alt="example3" > <figcaption class="subtitle"> example 3 </figcaption>
-    </a>
+    <h1 th:text="${developer.username} + '\'s published games'">Name</h1>
 
-  </div>
+    <!-- Displaying Developer's Games -->
+    <div class="games-container">
+        <div th:each="game : ${games}">
+            <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
+                <img th:src="@{'/images/' + ${game.thumbnailFileName}}" class="gamepreview" alt="Game thumbnail">
+                <figcaption class="subtitle" th:text="${game.title}">Game Title</figcaption>
+            </a>
+        </div>
+    </div>
 </div>
 
 </body>
