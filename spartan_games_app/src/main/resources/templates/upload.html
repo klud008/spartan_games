@@ -48,7 +48,7 @@
 <div class="uipadding">
     <div class="container">
         <h1>Upload Your Game</h1>
-        <form id="upload-form">
+        <form id="upload-form" th:action="@{/upload_game}" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="game-file">*Game File:</label>
                 <input type="file" id="game-file" name="game-file" accept=".zip" required>

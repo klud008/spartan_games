@@ -104,6 +104,11 @@ public class GameController {
         return service.getGamesByName(keyword);
     }
 
+    @GetMapping("/upload_game")
+        public String showUploadForm(Model model) {
+        return "upload"; 
+}
+
     /**
      * Create a new Game entry.
      * http://localhost:8080/games/upload_game
@@ -112,7 +117,7 @@ public class GameController {
      * @throws IOException 
      */
     @PostMapping("/upload_game")
-        public List<Game> addNewGame(@RequestParam("title") String title,
+        public String  addNewGame(@RequestParam("title") String title,
         @RequestParam("description") String description,
         @RequestParam("devId") int devId,
         @RequestParam("gameFile") MultipartFile gameFile,
@@ -125,7 +130,7 @@ public class GameController {
         service.addNewGame(title, description, devId, gameFile, thumbnailFile, gameFileName, thumbnailFileName);
         
 
-        return service.getAllGames();
+        return "redirect:/games/developer/" + devId;
     }
     
     
