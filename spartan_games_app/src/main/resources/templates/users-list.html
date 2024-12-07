@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
+
+    <!-- th:href="@{/styles/styles.css}" -->
+    <!-- href="/static/styles/styles.css" -->
+
+</head>
+<body>
+
+<!-- Top banner/header -->
+<div class="header">
+    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+    <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">  <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="avatar"> </a>
+</div>
+
+<!-- Topnav -->
+<div class="topnav">
+    <!-- Topnav options -->
+    <a href="/games/all">Home</a>
+    <a href="/games/all">New</a> <!-- Change later -->
+    <a href="/games/upload_game">Upload</a>
+    <a href="/user/admin/all" class="active">Users</a> <!-- Will only be visible to admins -->
+    <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+</div>
+
+<!-- ------------------------- -->
+<!-- ----- LIST OF USERS ----- -->
+<!-- ------------------------- -->
+
+<!-- Users list (it's actually a table :) ) -->
+<table id="userList">
+    <tr class="header">
+        <th style="width:50%">Username</th>
+        <th style="width:35%">Role</th>
+        <th>ID</th>
+    </tr>
+    <tr data-th-each="user: ${userList}" >
+        <td> <a data-th-href="@{/user/{userId}(userId=${user.userId})}"
+                data-th-text="${user.username}"> </a> </td>
+        <td data-th-text="${user.role}"></td>
+        <td data-th-text="${user.userId}"></td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
