@@ -7,12 +7,14 @@ import java.util.List;
 
 import group8.spartan_games_app.user.User;
 import group8.spartan_games_app.user.UserService;
+import group8.spartan_games_app.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,9 @@ public class GameController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private UserController userController;
+
     /**
      * Get a list of all Games in the database.
      * http://localhost:8080/games/all
@@ -59,20 +64,14 @@ public class GameController {
     public String getAllGames(Model model) {
         //return service.getAllGames();
 
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser = userService.getUserByUsername(name);
-        int currentUserId = currentUser.getUserId();
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
 
-        if (currentUser.getThumbnailData() != null) {
-            String base64Image = Base64.getEncoder().encodeToString(currentUser.getThumbnailData());
-            model.addAttribute("thumbnailData", base64Image);
-        } else {
-            model.addAttribute("thumbnailData", null);
-        }
-
-        model.addAttribute("user", userService.getUserById(currentUserId));
         model.addAttribute("gamesList", service.getAllGames());
+
+
         return "home";
+
     }
 
     /**
@@ -84,15 +83,35 @@ public class GameController {
      *
      */
     @GetMapping("/{gameId}")
-    public Game getOneGame(@PathVariable int gameId) {
-        return service.getGameById(gameId);
+    public String getOneGame(@PathVariable int gameId, Model model) {
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        Game game = service.getGameById(gameId);
+        List<Review> reviews = reviewService.getReviewsByGameId(gameId);
+
+        model.addAttribute("game", game);
+        //get reviews
+        model.addAttribute("reviews", reviews);
+        return "gamepage";
     }
 
     @GetMapping("/developer/{devId}")
-    public List<Game> getByDeveloper(@PathVariable int devId) {
-        return service.getGameByDev(devId);
-    }
+    public String  getByDeveloper(@PathVariable int devId, Model model) {
 
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        User developer = userService.getUserById(devId);
+
+        List<Game> developerGames = service.getGameByDev(devId);
+
+        model.addAttribute("games", developerGames);
+        model.addAttribute("developer", developer);
+
+        return "profile";
+    }
 
     /**
      * Get a list of Games based on the searched name.
@@ -106,6 +125,15 @@ public class GameController {
         return service.getGamesByName(keyword);
     }
 
+    @GetMapping("/upload_game")
+    public String showUploadForm(Model model) {
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        return "upload";
+    }
+
     /**
      * Create a new Game entry.
      * http://localhost:8080/games/upload_game
@@ -113,21 +141,21 @@ public class GameController {
      * @param game the new Game object.
      * @throws IOException 
      */
-    @PostMapping("/upload_game")
-        public List<Game> addNewGame(@RequestParam("title") String title,
-        @RequestParam("description") String description,
-        @RequestParam("devId") int devId,
-        @RequestParam("gameFile") MultipartFile gameFile,
-        @RequestParam("thumbnailFile") MultipartFile thumbnailFile) throws IOException{
+    @PostMapping("/upload_game_complete")
+    public String  addNewGame(@RequestParam("title") String title,
+                              @RequestParam("description") String description,
+                              @RequestParam("devId") int devId,
+                              @RequestParam("gameFile") MultipartFile gameFile,
+                              @RequestParam("thumbnailFile") MultipartFile thumbnailFile) throws IOException{
 
 
         String gameFileName = gameFile.getOriginalFilename();
         String thumbnailFileName = thumbnailFile.getOriginalFilename();
 
         service.addNewGame(title, description, devId, gameFile, thumbnailFile, gameFileName, thumbnailFileName);
-        
 
-        return service.getAllGames();
+
+        return "redirect:/games/developer/" + devId;
     }
     
     
@@ -151,10 +179,10 @@ public class GameController {
         return service.getGameById(gameId);
     }
 
-    
 
 
-     @GetMapping("/download/{gameId}")
+
+    @GetMapping("/download/{gameId}")
     public ResponseEntity<Resource> downloadGameFile(@PathVariable int gameId) {
         // Fetch the game by its ID
         Game game = service.getGameById(gameId);
@@ -174,9 +202,9 @@ public class GameController {
 
 
         return ResponseEntity.ok()
-            .headers(headers)
-            .contentLength(gameFileData.length)
-            .body(gameFile);
+                .headers(headers)
+                .contentLength(gameFileData.length)
+                .body(gameFile);
 
     }
 

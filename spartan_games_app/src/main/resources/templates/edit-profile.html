@@ -26,11 +26,11 @@
 <!-- Topnav -->
 <div class="topnav">
     <!-- Topnav options -->
-    <a href="/games/all" class=>Home</a>
-    <a href="featured.html">Featured</a>
-    <a href="trending.html">Trending</a>
-    <a href="you.html">For you</a>
-    <a href="upload.html">Upload</a>
+    <a href="/games/all">Home</a>
+    <a href="/games/all">New</a> <!-- Change later -->
+    <a href="/games/upload_game">Upload</a>
+    <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+    <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
 <!-- All nav stuff is above. Should be the same for every page. -->
@@ -40,7 +40,9 @@
 <!-- --------------------------------- -->
 
 <div class="container">
-    <h1>Create Account</h1>
+    <h1>Edit Account</h1>
+
+    <!-- All the stuff for editing the account -->
     <form action="/user/edit" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <input type="file" id="file" name="file">
@@ -66,7 +68,41 @@
 
         </div>
         <input type="submit" value="Submit" class="submitButton">
+        <button float="right" onclick="document.getElementById('id01').style.display='block'">Delete account</button>
     </form>
+
+    <!-- Are you sure? prompt -->
+    <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <form class="modal-content" data-th-action="@{/user/delete/{profileUserId}(profileUserId=${profileUser.profileUserId})}">
+            <div class="container">
+                <h1>Delete your profile?</h1>
+                <p>Are you sure you want to delete your account? This CANNOT be undone.</p>
+
+                <div class="clearfix">
+                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button type="submit" class="deletebtn">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
+
+<!-- ---------------------------- -->
+<!-- ----- JAVASCRIPT STUFF ----- -->
+<!-- ---------------------------- -->
+<script>
+
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
 </html>

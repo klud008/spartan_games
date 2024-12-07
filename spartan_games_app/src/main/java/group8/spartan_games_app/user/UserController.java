@@ -3,11 +3,13 @@ package group8.spartan_games_app.user;
 import group8.spartan_games_app.game.Game;
 import group8.spartan_games_app.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -29,28 +31,39 @@ public class UserController {
     }
 
     // GET all users (for viewing user list)
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/admin/all")
+    public String getAllUsers(Model model) {
+
+        addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("userList", userService.getAllUsers());
+
+
+        return "users-list";
+
     }
 
     // GET user by ID
-    @GetMapping("/{userId}")
-    public String getUserById(@PathVariable int userId, Model model) {
+    @GetMapping("/{profileUserId}")
+    public String getUserById(@PathVariable int profileUserId, Model model) {
 
-        User currentUser = userService.getUserById(userId);
+        addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
 
-        model.addAttribute("user" , currentUser);
+        User profileUser = userService.getUserById(profileUserId);
 
-        if (currentUser.getThumbnailData() != null) {
-            String base64Image = Base64.getEncoder().encodeToString(currentUser.getThumbnailData());
-            model.addAttribute("thumbnailData", base64Image);
+        model.addAttribute("profileUser" , profileUser);
+
+        if (profileUser.getThumbnailData() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(profileUser.getThumbnailData());
+            model.addAttribute("profileThumbnailData", base64Image);
         } else {
-            model.addAttribute("thumbnailData", null);
+            model.addAttribute("profileThumbnailData", null);
         }
 
-        model.addAttribute("username", currentUser.getUsername());
-        model.addAttribute("gamesList", gameService.getGameByDev(userId));
+        model.addAttribute("username", profileUser.getUsername());
+        model.addAttribute("gamesList", gameService.getGameByDev(profileUserId));
 
         return "profile";
     }
@@ -71,15 +84,15 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    @GetMapping("/edit/{userId}")
-    public String editUser(@PathVariable int userId, Model model) {
+    @GetMapping("/edit/{profileUserId}")
+    public String editUser(@PathVariable int profileUserId, Model model) {
 
-        User currentUser = userService.getUserById(userId);
+        User profileUser = userService.getUserById(profileUserId);
 
-        model.addAttribute("user" , currentUser);
+        model.addAttribute("user" , profileUser);
 
-        if (currentUser.getThumbnailData() != null) {
-            String base64Image = Base64.getEncoder().encodeToString(currentUser.getThumbnailData());
+        if (profileUser.getThumbnailData() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(profileUser.getThumbnailData());
             model.addAttribute("thumbnailData", base64Image);
         } else {
             model.addAttribute("thumbnailData", null);
@@ -102,23 +115,25 @@ public class UserController {
     }
 
     // PUT update a user's role or account status (e.g., ban or unban)
-    @PutMapping("/{userId}")
-    public User updateUser(@PathVariable int userId,
+    @PutMapping("/{profileUserId}")
+    public User updateUser(@PathVariable int profileUserId,
                            @RequestParam(value = "username", required = false) String username,
                            @RequestParam(value = "password", required = false) String password,
                            @RequestParam(value = "role", required = false) String role,
                            @RequestParam(value = "email", required = false) String email,
                            @RequestParam(value = "accountStatus", required = false) String accountStatus) {
 
-        userService.updateUser(userId, username, password, role, email, accountStatus);
 
-        return userService.getUserById(userId);
+
+        userService.updateUser(profileUserId, username, password, role, email, accountStatus);
+
+        return userService.getUserById(profileUserId);
     }
 
     // DELETE remove a user
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/{profileUserId}")
+    public void deleteUser(@PathVariable int profileUserId) {
+        userService.deleteUser(profileUserId);
     }
 
     // GET all users by role
@@ -126,4 +141,26 @@ public class UserController {
     public List<User> getUsersByRole(@PathVariable String role) {
         return userService.getUsersByRole(role);
     }
+
+    // Used to pass the necessary information on the current user to the html pages.
+    // Massively reduced redundancy this way, since this code gets repeated for nearly
+    // every single page on the site.
+    public void addUserAttributes(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User currentUser = userService.getUserByUsername(username);
+        int currentUserId = currentUser.getUserId();
+
+
+        if (currentUser.getThumbnailData() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(currentUser.getThumbnailData());
+            model.addAttribute("thumbnailData", base64Image);
+        } else {
+            model.addAttribute("thumbnailData", null);
+        }
+
+        model.addAttribute("user", currentUser);
+    }
+
 }

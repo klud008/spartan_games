@@ -9,7 +9,7 @@ body {
     background: #25242a;
 }
 
-/* Add a black background color to the top navigation bar */
+/* Add a black background color to the top header */
 .header {
     overflow: hidden;
     background-color: #162443;
@@ -205,9 +205,9 @@ div.desc {
     border-radius: 4px;
 }
 
-/*----------------*/
+/*------------------*/
 /* < PROFILE PAGE > */
-/*----------------*/
+/*------------------*/
 /* The little 'card' for the user's profile on their page */
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -254,4 +254,106 @@ div.desc {
 .sign-out:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+/*-----------------------*/
+/* < EDIT PROFILE PAGE > */
+/*-----------------------*/
+.modal {
+    box-sizing: border-box
+    background-color: #09080f;
+}
+
+.modal h1, p {
+    padding-left: 20px;
+}
+
+/* Set a style for all modal buttons */
+.modal button {
+  color: white;
+  padding: 14px 20px;
+  margin: 12px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  opacity: 0.9;
+}
+
+.modal button:hover {
+  opacity:1;
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .deletebtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+  background-color: #f44336;
+}
+
+/*--------------------*/
+/* < USER LIST PAGE > */
+/*--------------------*/
+
+#userList {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    font-size: 18px; /* Increase font-size */
+}
+
+#userList a {
+    color: #f1f1f1;
+}
+
+#userList th, #userList td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#userList tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#userList tr.header {
+    /* Add a grey background color to the table header */
+    background-color: #09080f;
+}
+
+/*----------------------*/
+/* < REPORT LIST PAGE > */
+/*----------------------*/
+
+#reportList {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    font-size: 18px; /* Increase font-size */
+}
+
+#reportList a {
+    color: #f1f1f1;
+}
+
+#reportList th, #reportList td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#reportList tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#reportList tr.header {
+    /* Add a grey background color to the table header */
+    background-color: #09080f;
 }
