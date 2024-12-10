@@ -19,8 +19,12 @@
 <!-- Top banner/header -->
 <div class="header">
     <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-    <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
-    <a th:href="@{/user/{userId}(userId=${user.userId})}">  <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="avatar"> </a>
+    <form action="/games/search" method="get">
+        <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    </form>
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">
+        <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+    </a>
 </div>
 
 <!-- Topnav -->
@@ -45,17 +49,16 @@
     <!-- All the stuff for editing the account -->
     <form action="/user/edit" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <input type="file" id="file" name="file">
+            <input type="file" id="newThumbnailData" name="newThumbnailData">
+        </div>
+
+        <div>
+            <input type="text" id="userId" name="userId"  data-th-value="${user.userId}" hidden/>
         </div>
 
         <div class="form-group">
-            <label for="userId">Your ID (you can't change this)</label>
-            <input type="text" id="userId" name="userId"  data-th-value="${user.userId}" readonly/>
-        </div>
-
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input id="username" type="text" name="username" data-th-value="${user.username}">
+            <label for="username">Username (cannot change):</label>
+            <input id="username" type="text" name="username" data-th-value="${user.username}" readonly>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
@@ -68,25 +71,27 @@
 
         </div>
         <input type="submit" value="Submit" class="submitButton">
-        <button float="right" onclick="document.getElementById('id01').style.display='block'">Delete account</button>
     </form>
+    <button float="right" onclick="document.getElementById('id01').style.display='block'">Delete account</button>
 
-    <!-- Are you sure? prompt -->
-    <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <form class="modal-content" data-th-action="@{/user/delete/{profileUserId}(profileUserId=${profileUser.profileUserId})}">
-            <div class="container">
-                <h1>Delete your profile?</h1>
-                <p>Are you sure you want to delete your account? This CANNOT be undone.</p>
-
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="deletebtn">Delete</button>
-                </div>
-            </div>
-        </form>
-    </div>
 </div>
+
+<!-- Are you sure? prompt -->
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" data-th-action="@{/user/delete/{userId}(userId=${user.userId})}">
+        <div class="modalContainer">
+            <h1>Delete your profile?</h1>
+            <p>Are you sure you want to delete your account? This CANNOT be undone.</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="submit" class="deletebtn">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 
 <!-- ---------------------------- -->

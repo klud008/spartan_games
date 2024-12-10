@@ -17,8 +17,12 @@
 <!-- Top banner/header -->
 <div class="header">
   <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-  <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
-  <a th:href="@{/user/{userId}(userId=${user.userId})}">  <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="avatar"> </a>
+  <form action="/games/search" method="get">
+    <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+  </form>
+  <a th:href="@{/user/{userId}(userId=${user.userId})}">
+    <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+  </a>
 </div>
 
 <!-- Topnav -->
@@ -42,12 +46,12 @@
     <!-- User's profile 'card' -->
     <div class="card">
 
-      <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="profileimg">
-      <h1 data-th-text="${user.username}"></h1>
-      <p class="description" text-indent="10px" data-th-text="${user.description}"></p>
+      <img th:src="@{/user/{profileUserId}/thumbnail(profileUserId=${profileUser.userId})}" onerror="this.src='/static/images/placeholder.jpg';" th:alt="${profileUser.username}" class="profileimg">
+      <h1 data-th-text="${profileUser.username}"></h1>
+      <p class="description" text-indent="10px" data-th-text="${profileUser.description}"></p>
       <div>
         <a th:href="@{/logout}" class="signout"> Sign out </a>
-        <a th:href="@{/user/edit/{userId}(userId=${user.userId})}" class="modify" float="right"> Edit profile </a>
+        <a th:href="@{/user/edit/{profileUserId}(profileUserId=${profileUser.userId})}" class="modify" float="right"> Edit profile </a>
       </div>
     </div>
 

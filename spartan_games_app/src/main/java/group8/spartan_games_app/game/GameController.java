@@ -115,14 +115,20 @@ public class GameController {
 
     /**
      * Get a list of Games based on the searched name.
-     * http://localhost:8080/games/title_search?name=
+     * http://localhost:8080/games/search?name=
      *
      * @param keyword the search key.
      * @return A list of Game objects matching the search key.
      */
-    @GetMapping("/title_search")
-    public List<Game> getGamesByTitle(@RequestParam(name = "title", defaultValue = "") String keyword) {
-        return service.getGamesByName(keyword);
+    @GetMapping("/search")
+    public String getGamesByTitle(@RequestParam(name = "query", defaultValue = "") String keyword, Model model) {
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("gamesList", service.getGamesByName(keyword));
+
+
+        return "search";
     }
 
     @GetMapping("/upload_game")

@@ -19,18 +19,13 @@
 <!-- Top banner/header -->
 <div class="header">
     <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-    <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    <!-- <input type="text" id="searchQuery" placeholder="Search..." title="search"> <--onkeyup="searchFunction()"-->
     <!-- <a href="profile.html">  <img src="${user.thumbnailData}" alt="${user.username}" class="avatar"> </a> -->
 </div>
 
 <!-- Topnav -->
 <div class="topnav">
-    <!-- Topnav options -->
-    <a href="/games/all">Home</a>
-    <a href="/games/all">New</a> <!-- Change later -->
-    <a href="/games/upload_game">Upload</a>
-    <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
-    <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+    <!-- NO topnav options, since they need to log in first anyway -->
 </div>
 
 <!-- All nav stuff is above. Should be the same for every page. -->
@@ -52,8 +47,8 @@
 
         </div>
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" type="text" name="email" required>
+            <label for="email">Email (optional):</label>
+            <input id="email" type="text" name="email">
 
         </div>
         <input type="submit" value="Submit" class="submitButton">

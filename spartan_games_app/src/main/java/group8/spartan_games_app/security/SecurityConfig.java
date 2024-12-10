@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .csrf().disable() // Disable CSRF for testing; enable in production with proper setup
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/sign-up", "/user/new-user").permitAll() // Allow access to signup page and static resources
+                        .requestMatchers("/user/sign-up", "/user/new-user", "/styles/**", "/js/**", "/images/**").permitAll() // Allow access to signup page and static resources
                         .anyRequest().authenticated() // All other pages require authentication
                 )
                 .formLogin(form -> form

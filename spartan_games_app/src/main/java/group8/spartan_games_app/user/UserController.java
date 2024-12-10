@@ -3,6 +3,8 @@ package group8.spartan_games_app.user;
 import group8.spartan_games_app.game.Game;
 import group8.spartan_games_app.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
@@ -87,15 +90,18 @@ public class UserController {
     @GetMapping("/edit/{profileUserId}")
     public String editUser(@PathVariable int profileUserId, Model model) {
 
+        addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
         User profileUser = userService.getUserById(profileUserId);
 
-        model.addAttribute("user" , profileUser);
+        model.addAttribute("profileUser" , profileUser);
 
         if (profileUser.getThumbnailData() != null) {
             String base64Image = Base64.getEncoder().encodeToString(profileUser.getThumbnailData());
-            model.addAttribute("thumbnailData", base64Image);
+            model.addAttribute("profileThumbnailData", base64Image);
         } else {
-            model.addAttribute("thumbnailData", null);
+            model.addAttribute("profileThumbnailData", null);
         }
 
         return "edit-profile";
@@ -107,11 +113,43 @@ public class UserController {
      *
      */
     @PostMapping("/edit")
-    public String editUser(User user, @RequestParam("file") MultipartFile file) throws IOException {
-        // Process the byte[] to database
-        user.setThumbnailData(file);
-        userService.updateUser(user.getUserId(), user);
-        return "redirect:/user/" + user.getUserId();
+    public String editUser(
+            @RequestParam("userId") int userId,
+            @RequestParam("email") String email,
+            @RequestParam("description") String description,
+            @RequestParam("newThumbnailData") MultipartFile newThumbnailData
+    ) throws IOException {
+        // Gets the user
+        User user = userService.getUserById(userId);
+
+        user.setEmail(email);
+        user.setDescription(description);
+
+        // Update the thumbnail data if a file was uploaded
+        if (newThumbnailData != null && !newThumbnailData.isEmpty()) {
+            user.setThumbnailData(newThumbnailData);
+        }
+
+        userService.updateUser(userId, user);
+
+        return "redirect:/user/" + userId;
+    }
+
+    @GetMapping("/{userId}/thumbnail")
+    public ResponseEntity<byte[]> getUserThumbnail(@PathVariable int userId) throws IOException {
+        User user = userService.getUserById(userId);
+
+        if (user.getThumbnailData() == null) {
+            InputStream defaultImageStream = getClass().getResourceAsStream("/static/images/placeholder.jpg");
+            byte[] defaultImage = defaultImageStream.readAllBytes();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(defaultImage);
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(user.getThumbnailData());
     }
 
     // PUT update a user's role or account status (e.g., ban or unban)
@@ -131,9 +169,10 @@ public class UserController {
     }
 
     // DELETE remove a user
-    @DeleteMapping("/{profileUserId}")
-    public void deleteUser(@PathVariable int profileUserId) {
+    @GetMapping("/delete/{profileUserId}")
+    public String deleteUser(@PathVariable int profileUserId) {
         userService.deleteUser(profileUserId);
+        return "redirect:/login";
     }
 
     // GET all users by role

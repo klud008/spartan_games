@@ -14,8 +14,12 @@
 <!-- Top banner/header -->
 <div class="header">
     <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-    <input type="text" id="searchQuery" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
-    <a th:href="@{/user/{userId}(userId=${user.userId})}">  <img th:src="${user.thumbnailData != null} ? ${user.thumbnailData} : '/images/placeholder.jpg'" th:alt="${user.username}" class="avatar"> </a>
+    <form action="/games/search" method="get">
+        <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    </form>
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">
+        <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+    </a>
 </div>
 
 <!-- Topnav -->
