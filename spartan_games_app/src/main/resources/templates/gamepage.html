@@ -1,110 +1,143 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="Spartan Games - Epic Game" content="width=device-width, initial-scale=1.0">
-    <title>Game Details</title>
-    <link rel="stylesheet" href="../static/styles/gamepagestyles.css" th:href="@{/styles/gamepagestyles.css}">
-</head>
+  <meta charset="UTF-8">
+  <title>Game Info</title>
+  <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
-<!-- --------------------------------- -->
-<!-- ----- NAVIGATION MENUS / UI ----- -->
-<!-- --------------------------------- -->  
+  <!-- th:href="@{/styles/styles.css}" -->
+  <!-- href="/static/styles/styles.css" -->
+
+</head>
+<body>
 
 <!-- Top banner/header -->
 <div class="header">
-    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-    <div class="wrapper">
-        <div class="searchbar">
-            <input id="searchqueryinput" type="text" placeholder="Search">
-            <button id="searchquerysubmit" type="submit">
-                <img src="images/search.png" width="24px" height="24px">
-            </button>
-        </div>
+  <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+  <form action="/games/search" method="get">
+    <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+  </form>
+  <a th:href="@{/user/{userId}(userId=${user.userId})}">
+    <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+  </a>
+</div>
 
+<!-- Topnav -->
+<div class="topnav">
+  <!-- Topnav options -->
+  <a href="/games/all">Home</a>
+  <a href="/games/new-uploads">New</a>
+  <a href="/games/upload_game">Upload</a>
+  <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+  <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+</div>
+
+<div class="container">
+  <div class = "edit"> UPDATE</div>
+  <h1 th:text="${game.title}">Epic Game</h1>
+
+  <!-- Game Information Section -->
+  <div class="game-info">
+    <div class="game-image-container">
+      <img src="./images/example.png" alt="Game Image" class="game-image">
+      <div class="download-section">
+        <a th:href="@{/games/download/{gameId}(gameId=${game.gameId})}" class="download-button">Download Game</a>
+        <p>Available on: Windows</p>
+      </div>
     </div>
-    <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
-</div>
+  </div>
 
-<!-- Sidebar -->
-<div class="sidenav">
-    <!-- Sidebar options -->
-    <a th:href="@{/games/home }" class="active">Home</a>
-    <a th:href="@{/featured}">Featured</a>
-    <a th:href="@{/trending}">Trending</a>
-    <a th:href="@{/you}">For you</a>
-    <a th:href="@{/games/upload_game}">Upload</a>
-</div>
+  <p><strong>Description:</strong> <span th:text="${game.description}">This is the game description.</span></p>
+  <!---- <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p>
+-->
 
-<!-- All nav stuff is above. Should be the same for every page. -->
 
-<!-- --------------------------------- -->
-<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
-<!-- --------------------------------- -->
-
-<body>
-<div class="uipadding">
-    <div class="container">
-        <div class = "edit"> UPDATE</div>
-        <h1 th:text="${game.title}">Epic Game</h1>
-        
-        <!-- Game Information Section -->
-        <div class="game-info">
-            <div class="game-image-container"> 
-                <img src="./images/example.png" alt="Game Image" class="game-image">
-                <div class="download-section">
-                    <a th:href="@{/games/download/{gameId}(gameId=${game.gameId})}" class="download-button">Download Game</a>
-                    <p>Available on: Windows</p>
-                </div>
-            </div>
-        </div>
-
-       <p><strong>Description:</strong> <span th:text="${game.description}">This is the game description.</span></p>
-            <!---- <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p> 
-    -->
-        
-
-        <!-- Review Section -->
-        <div class="reviews-section">
-            <h2>Reviews</h2>
-
-            <!-- Existing Reviews -->
-            <div class="reviews" th:each="review : ${reviews}">
-                <div class="review">
-                    <p th:text="${review.author}">Reviewer Id</p> 
-                    <p th:text="${review.content}">Review Body</p> 
-                    <p>Rating: <span th:text="${review.rating}">⭐⭐⭐⭐☆</span></p> 
-                </div>
-                <br>
-            </div>
-
-            
-            <h3>Add Your Review</h3>
-            <form id="review-form">
-                <div class="form-group">
-                    <label for="review-text">*Review:</label>
-                    <textarea id="review-text" name="review-text" rows="5" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="rating">*Rating:</label>
-                    <select id="rating" name="rating" required>
-                        <option value="5">👍👍👍👍👍</option>
-                        <option value="4">👍👍👍👍</option>
-                        <option value="3">👍👍👍</option>
-                        <option value="2">👍👍</option>
-                        <option value="1">👍</option>
-                    </select>
-                </div>
-                <button type="submit">Submit Review</button>
-            </form>
-            <div class="report">
-                <a href="">Report This Game</a>
-            </div>
-
-        </div>
-            
-
+    <h3>Add Your Review</h3>
+    <form id="review-form" action="/reviews/add" method="post">
+      <input name="userId" th:value="${user.userId}" hidden>
+      <input name="username" th:value="${user.username}" hidden>
+      <input name="gameId" th:value="${game.gameId}" hidden>
+      <div class="form-group">
+        <label for="review-text">*Review:</label>
+        <textarea id="review-text" name="review-text" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="rating">*Rating:</label>
+        <select id="rating" name="rating" required>
+          <option value="5">👍👍👍👍👍</option>
+          <option value="4">👍👍👍👍</option>
+          <option value="3">👍👍👍</option>
+          <option value="2">👍👍</option>
+          <option value="1">👍</option>
+        </select>
+      </div>
+      <button class="submitButton" type="submit">Submit Review</button>
+    </form>
+    <div>
+      <a onclick="document.getElementById('id01').style.display='block'" class="link">Report This Game</a>
     </div>
+
+    <!-- Review Section -->
+    <div class="reviews-section">
+      <h2>Reviews</h2>
+
+      <!-- Existing Reviews -->
+      <div class="reviews" th:each="review : ${reviews}">
+        <div class="review">
+          <p> <a  class="link"
+                  data-th-href="@{/user/{userId}(userId=${review.userId})}"
+                  th:text="${review.username}">
+            Username</a>
+          </p>
+          <p> <span th:text="'Rating: ' + ${review.rating} + ' 👍'"></span> </p>
+          <p th:text="${review.comment}">Review Body</p>
+        </div>
+        <br>
+      </div>
+    </div>
+
+  </div>
+
+<!-- Report prompt (for game) -->
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="container" action="/report/new" method="post">
+    <div class="modalContainer">
+      <h1>Submit a report?</h1>
+
+      <input type="text" id="userId" name="userId"  data-th-value="${user.userId}" hidden/>
+      <input type="text" id="contentId" name="contentId"  data-th-value="${game.gameId}" hidden/>
+      <input type="text" id="contentType" name="contentType" value="GAME" hidden/>
+
+      <div class="form-group">
+        <label for="description">Reason for the report:</label>
+        <textarea id="description" type="text" name="reason"></textarea>
+      </div>
+
+      <div>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="reportbtn">Cancel</button>
+        <button type="submit" class="reportbtn">Submit report</button>
+      </div>
+    </div>
+  </form>
 </div>
+
 </body>
+
+<!-- ---------------------------- -->
+<!-- ----- JAVASCRIPT STUFF ----- -->
+<!-- ---------------------------- -->
+<script>
+
+  // Get the modal
+  var modal = document.getElementById('id01');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
 </html>

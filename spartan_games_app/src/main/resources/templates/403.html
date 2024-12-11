@@ -32,16 +32,8 @@
     <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
-<!-- Image gallery stuff -->
-<div class="responsive" data-th-each="game: ${gamesList}">
-    <div class="gallery">
-        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
-        </a>
-        <div class="desc" data-th-text="${game.title}"></div>
-    </div>
-</div>
+<!-- Just the message lol -->
+<h1>You don't have permission to access this page. Sorry!</h1>
 
-<div class="clearfix"></div>
 </body>
 </html>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
 
-    List<Review> findByGameId(long gameId);
+    List<Review> findByGameId(int gameId);
 
     
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Users</title>
     <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
     <!-- th:href="@{/styles/styles.css}" -->
@@ -25,23 +25,34 @@
 <!-- Topnav -->
 <div class="topnav">
     <!-- Topnav options -->
-    <a href="/games/all" class="active">Home</a>
+    <a href="/games/all">Home</a>
     <a href="/games/new-uploads">New</a>
     <a href="/games/upload_game">Upload</a>
-    <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+    <a href="/user/admin/all" class="active">Users</a> <!-- Will only be visible to admins -->
     <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
-<!-- Image gallery stuff -->
-<div class="responsive" data-th-each="game: ${gamesList}">
-    <div class="gallery">
-        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
-        </a>
-        <div class="desc" data-th-text="${game.title}"></div>
-    </div>
-</div>
+<!-- ------------------------- -->
+<!-- ----- LIST OF USERS ----- -->
+<!-- ------------------------- -->
 
-<div class="clearfix"></div>
+<!-- Users list (it's actually a table :) ) -->
+<table id="userList">
+    <tr class="header">
+        <th style="width:50%">Username</th>
+        <th style="width:35%">Role</th>
+        <th>ID</th>
+    </tr>
+    <tr data-th-each="user: ${userList}" >
+        <td> <a class="link"
+                data-th-href="@{/user/{userId}(userId=${user.userId})}"
+                data-th-text="${user.username}"> </a> </td>
+        <td data-th-text="${user.role}"></td>
+        <td data-th-text="${user.userId}"></td>
+    </tr>
+</table>
+
+
+
 </body>
 </html>

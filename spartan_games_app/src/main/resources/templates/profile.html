@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
   <!-- Page Name -->
-  <title>Spartan Games - Goober Johnson's Page</title>
-  <link rel="stylesheet" href="../static/styles/homestyles.css" th:href="@{/styles/homestyles.css}">
+  <title>Profile</title>
+  <link rel="stylesheet" th:href="@{/styles/styles.css}">
+
+  <!-- th:href="@{/styles/styles.css}" -->
+  <!-- href="/static/styles/styles.css" -->
 </head>
 <body>
 
@@ -14,26 +17,22 @@
 <!-- Top banner/header -->
 <div class="header">
   <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-  <div class="wrapper">
-    <div class="searchbar">
-      <input id="searchqueryinput" type="text" placeholder="Search">
-      <button id="searchquerysubmit" type="submit">
-        <img src="images/search.png" width="24px" height="24px">
-      </button>
-    </div>
-
-  </div>
-  <a href="profile.html">  <img th:src="@{/images//example.png}" alt="Avatar" class="avatar"> </a>
+  <form action="/games/search" method="get">
+    <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+  </form>
+  <a th:href="@{/user/{userId}(userId=${user.userId})}">
+    <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+  </a>
 </div>
 
-<!-- Sidebar -->
-<div class="sidenav">
-    <!-- Sidebar options -->
-    <a th:href="@{/games/home }" class="active">Home</a>
-    <a th:href="@{/featured}">Featured</a>
-    <a th:href="@{/trending}">Trending</a>
-    <a th:href="@{/you}">For you</a>
-    <a th:href="@{/games/upload_game}">Upload</a>
+<!-- Topnav -->
+<div class="topnav">
+  <!-- Topnav options -->
+  <a href="/games/all">Home</a>
+  <a href="/games/new-uploads">New</a>
+  <a href="/games/upload_game">Upload</a>
+  <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+  <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
 <!-- All nav stuff is above. Should be the same for every page. -->
@@ -41,35 +40,41 @@
 <!-- --------------------------------- -->
 <!-- ----- PAGE-SPECIFIC CONTENT ----- -->
 <!-- --------------------------------- -->
-
-<div class="uipadding">
   <div class="content">
     <!-- User's profile 'card' -->
     <div class="card">
-
-      <img th:src="@{/images//example.png}" alt="goober" class="profileimg" hspace="15px" vspace="15px">
-      <h1>Goober Johnson</h1>
-      <p class="description" text-indent="10px">I am just a user here who really likes games! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <img th:src="@{/user/{profileUserId}/thumbnail(profileUserId=${profileUser.userId})}" onerror="this.src='/static/images/placeholder.jpg';" th:alt="${profileUser.username}" class="profileimg">
+      <h1 data-th-text="${profileUser.username}"></h1>
+      <p class="description" text-indent="10px" data-th-text="${profileUser.description}"></p>
       <div>
-        <a href="login.html" class="signout"> Sign out </a>
-        <button class="modify" float="right"> Edit profile </button>
+        <a th:href="@{/logout}" class="signout"> Sign out </a>
+        <a th:href="@{/user/edit/{profileUserId}(profileUserId=${profileUser.userId})}" class="modify" float="right"> Edit profile </a>
       </div>
     </div>
 
-    
+    <!-- User's published games -->
+    <h1>Published games</h1>
 
-    <h1 th:text="${developer.username} + '\'s published games'">Name</h1>
-
-    <!-- Displaying Developer's Games -->
-    <div class="games-container">
-        <div th:each="game : ${games}">
-            <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-                <img th:src="@{'/images/' + ${game.thumbnailFileName}}" class="gamepreview" alt="Game thumbnail">
-                <figcaption class="subtitle" th:text="${game.title}">Game Title</figcaption>
-            </a>
+    <!-- Image gallery stuff -->
+    <div>
+      <div class="responsive" data-th-each="game: ${gamesList}">
+        <div class="gallery">
+          <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
+            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
+          </a>
+          <div class="desc" data-th-text="${game.title}"></div>
         </div>
+      </div>
+
+      <!-- Fallback Message -->
+      <p th:if="${gamesList == null || gamesList.isEmpty()}">
+        This user has no published games.
+      </p>
     </div>
-</div>
+
+    <div class="clearfix"></div>
+
+  </div>
 
 </body>
 </html>

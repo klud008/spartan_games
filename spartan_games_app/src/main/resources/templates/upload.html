@@ -1,77 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Upload</title>
-    <link rel="stylesheet" href="../static/styles/uploadstyles.css" th:href="@{/styles/uploadstyles.css}">
-</head>
+  <meta charset="UTF-8">
+  <title>Upload</title>
+  <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
+  <!-- th:href="@{/styles/styles.css}" -->
+  <!-- href="/static/styles/styles.css" -->
+
+</head>
 <body>
-<!-- --------------------------------- -->
-<!-- ----- NAVIGATION MENUS / UI ----- -->
-<!-- --------------------------------- -->
 
 <!-- Top banner/header -->
 <div class="header">
-    <img src="images/spartan-games-logo.png" class="logo" alt="Spartan Games">
-    <div class="wrapper">
-        <div class="searchbar">
-            <input id="searchqueryinput" type="text" placeholder="Search">
-            <button id="searchquerysubmit" type="submit">
-                <img src="images/search.png" width="24px" height="24px">
-            </button>
-        </div>
+  <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+  <form action="/games/search" method="get">
+    <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+  </form>
+  <a th:href="@{/user/{userId}(userId=${user.userId})}">
+    <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+  </a>
+</div>
 
+<!-- Topnav -->
+<div class="topnav">
+  <!-- Topnav options -->
+  <a href="/games/all">Home</a>
+  <a href="/games/new-uploads">New</a>
+  <a href="/games/upload_game" class="active">Upload</a>
+  <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+  <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+</div>
+
+<!-- Stuff for game upload -->
+<div class="container">
+  <h1>Upload Your Game</h1>
+  <form id="upload-form" th:action="@{/games/upload_game_complete}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="title">Game Title:</label>
+      <input type="text" id="title" name="title" required placeholder="Enter game title" />
     </div>
-    <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
-</div>
-
-<!-- Sidebar -->
-<div class="sidenav">
-    <!-- Sidebar options -->
-    <a th:href="@{/games/home }" class="active">Home</a>
-    <a th:href="@{/featured}">Featured</a>
-    <a th:href="@{/trending}">Trending</a>
-    <a th:href="@{/you}">For you</a>
-    <a th:href="@{/games/upload_game}">Upload</a>
-</div>
-
-<!-- All nav stuff is above. Should be the same for every page. -->
-
-<!-- --------------------------------- -->
-<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
-<!-- --------------------------------- -->
-
-
-
-<div class="uipadding">
-    <div class="container">
-        <h1>Upload Your Game</h1>
-        <form id="upload-form" th:action="@{/games/upload_game}" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="title">*Game Title:</label>
-                <input type="text" id="title" name="title" required placeholder="Enter game title" />
-            </div>
-            <div class="form-group">
-                <label for="game-file">*Game File:</label>
-                <input type="file" id="game-file" name="gameFile" accept=".zip" required>
-            </div>
-            <div class="form-group">
-                <label for="image-file">*Game Image:</label>
-                <input type="file" id="image-file" name="thumbnailFile" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <label for="description">*Description:</label>
-                <textarea id="description" name="description" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="devId">Developer ID:</label>
-                <input type="text" id="devId" name="devId" value="1" readonly />
-            </div>
-            <button type="submit">Upload Game</button>
-        </form>
+    <div class="form-group">
+      <label for="game-file">Game File:</label>
+      <input type="file" id="game-file" name="gameFile" accept=".zip" required>
     </div>
-</div>
+    <div class="form-group">
+      <label for="image-file">Game Image:</label>
+      <input type="file" id="image-file" name="thumbnailFile" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="5" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="devId">Developer ID:</label>
+      <input type="text" id="devId" name="devId" value="1" readonly />
+    </div>
+    <button type="submit">Upload Game</button>
+  </form>
+
 </body>
 </html>

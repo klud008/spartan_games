@@ -34,7 +34,7 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-    public List<Review> getReviewsByGameId(long gameId) {
+    public List<Review> getReviewsByGameId(int gameId) {
         return reviewRepository.findByGameId(gameId);
     }
 }

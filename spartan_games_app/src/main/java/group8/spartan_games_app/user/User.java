@@ -1,8 +1,11 @@
 package group8.spartan_games_app.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -22,7 +25,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    private String role = "USER";
 
     @Column(nullable = false)
     private String email;
@@ -32,11 +35,28 @@ public class User {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private String accountStatus;
+    private String accountStatus = "ACTIVE";
+
+    @Lob
+    @Column(name = "thumbnail", nullable = true, columnDefinition = "LONGBLOB")
+    private byte[] thumbnailData;
+
+    @Column(nullable = true)
+    private String description = "";
+
 
     public User() {}
 
-    public User(int userId, String username, String password, String role, String email, LocalDateTime createdAt, String accountStatus) {
+    // Used for the actual sign-up
+    public User(String username, String password, String email) {
+        //this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        //this.createdAt = createdAt;
+    }
+
+    public User(int userId, String username, String password, String role, String email, LocalDateTime createdAt, String accountStatus, byte[] thumbnailData) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -44,6 +64,7 @@ public class User {
         this.email = email;
         this.createdAt = createdAt;
         this.accountStatus = accountStatus;
+        this.thumbnailData = thumbnailData;
     }
 
     /*public User(String username, String password, String role, String email, String accountStatus) {
@@ -106,4 +127,21 @@ public class User {
     public String getAccountStatus() { return accountStatus; }
 
     public void setAccountStatus(String accountStatus) { this.accountStatus = accountStatus; }
+
+    @JsonIgnore
+    public byte[] getThumbnailData() {
+        return thumbnailData;
+    }
+
+    public void setThumbnailData(byte[] thumbnailData) {
+        this.thumbnailData = thumbnailData;
+    }
+
+    public void setThumbnailData(MultipartFile thumbnailData) throws IOException {
+        this.setThumbnailData( thumbnailData.getBytes() );
+    }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 }

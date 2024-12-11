@@ -2,14 +2,20 @@ package group8.spartan_games_app.game;
 
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
+import group8.spartan_games_app.user.User;
+import group8.spartan_games_app.user.UserService;
+import group8.spartan_games_app.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,20 +45,13 @@ public class GameController {
     private GameService service;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ReviewService reviewService;
 
     @Autowired
-    private UserService userService;
-
-    /*
-    http://localhost:8080/games/home 
-    
-    */
-    @GetMapping("/home")
-    public String homePage(Model model){
-        return "new-home";
-    }
-
+    private UserController userController;
 
     /**
      * Get a list of all Games in the database.
@@ -62,8 +61,30 @@ public class GameController {
      *
      */
     @GetMapping("/all")
-    public List<Game> getAllGames() {
-        return service.getAllGames();
+    //public List<Game> getAllGames() {
+    public String getAllGames(Model model) {
+        //return service.getAllGames();
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("gamesList", service.getAllGames());
+
+
+        return "home";
+
+    }
+
+    @GetMapping("/new-uploads")
+    public String getGamesByNewest(Model model) {
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("gamesList", service.getGamesByNewest());
+
+
+        return "new-uploads";
     }
 
     /**
@@ -76,22 +97,27 @@ public class GameController {
      */
     @GetMapping("/{gameId}")
     public String getOneGame(@PathVariable int gameId, Model model) {
-        
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
         Game game = service.getGameById(gameId);
         List<Review> reviews = reviewService.getReviewsByGameId(gameId);
 
         model.addAttribute("game", game);
-        //get reviews 
+        //get reviews
         model.addAttribute("reviews", reviews);
         return "gamepage";
     }
 
     @GetMapping("/developer/{devId}")
     public String  getByDeveloper(@PathVariable int devId, Model model) {
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
 
         User developer = userService.getUserById(devId);
 
         List<Game> developerGames = service.getGameByDev(devId);
+
 
         model.addAttribute("games", developerGames);
         model.addAttribute("developer", developer);
@@ -99,17 +125,31 @@ public class GameController {
         return "profile";
     }
 
-
     /**
      * Get a list of Games based on the searched name.
-     * http://localhost:8080/games/title_search?name=
+     * http://localhost:8080/games/search?name=
      *
      * @param keyword the search key.
      * @return A list of Game objects matching the search key.
      */
-    @GetMapping("/title_search")
-    public List<Game> getGamesByTitle(@RequestParam(name = "title", defaultValue = "") String keyword) {
-        return service.getGamesByName(keyword);
+    @GetMapping("/search")
+    public String getGamesByTitle(@RequestParam(name = "query", defaultValue = "") String keyword, Model model) {
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("gamesList", service.getGamesByName(keyword));
+
+
+        return "search";
+    }
+
+    @GetMapping("/upload_game")
+    public String showUploadForm(Model model) {
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        return "upload";
     }
 
     @GetMapping("/upload_game")
@@ -124,19 +164,18 @@ public class GameController {
      * @param game the new Game object.
      * @throws IOException 
      */
-    @PostMapping("/upload_game")
-        public String  addNewGame(@RequestParam("title") String title,
-        @RequestParam("description") String description,
-        @RequestParam("devId") int devId,
-        @RequestParam("gameFile") MultipartFile gameFile,
-        @RequestParam("thumbnailFile") MultipartFile thumbnailFile) throws IOException{
+    @PostMapping("/upload_game_complete")
+    public String  addNewGame(@RequestParam("title") String title,
+                              @RequestParam("description") String description,
+                              @RequestParam("devId") int devId,
+                              @RequestParam("gameFile") MultipartFile gameFile,
+                              @RequestParam("thumbnailFile") MultipartFile thumbnailFile) throws IOException{
 
 
         String gameFileName = gameFile.getOriginalFilename();
         String thumbnailFileName = thumbnailFile.getOriginalFilename();
 
         service.addNewGame(title, description, devId, gameFile, thumbnailFile, gameFileName, thumbnailFileName);
-        
 
         return "redirect:/games/developer/" + devId;
     }
@@ -162,10 +201,10 @@ public class GameController {
         return service.getGameById(gameId);
     }
 
-    
 
 
-     @GetMapping("/download/{gameId}")
+
+    @GetMapping("/download/{gameId}")
     public ResponseEntity<Resource> downloadGameFile(@PathVariable int gameId) {
         // Fetch the game by its ID
         Game game = service.getGameById(gameId);
@@ -185,14 +224,14 @@ public class GameController {
 
 
         return ResponseEntity.ok()
-            .headers(headers)
-            .contentLength(gameFileData.length)
-            .body(gameFile);
+                .headers(headers)
+                .contentLength(gameFileData.length)
+                .body(gameFile);
 
     }
 
     @GetMapping("/reviews/{gameId}")
-    public List<Review> getMethodName(@PathVariable long gameId) {
+    public List<Review> getMethodName(@PathVariable int gameId) {
         
         return reviewService.getReviewsByGameId(gameId);
     }
