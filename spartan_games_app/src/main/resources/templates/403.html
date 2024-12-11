@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>403 Error</title>
+    <title>Home</title>
     <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
     <!-- th:href="@{/styles/styles.css}" -->
@@ -14,13 +14,19 @@
 <!-- Top banner/header -->
 <div class="header">
     <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+    <form action="/games/search" method="get">
+        <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    </form>
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">
+        <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+    </a>
 </div>
 
 <!-- Topnav -->
 <div class="topnav">
     <!-- Topnav options -->
-    <a href="/games/all">Home</a>
-    <a href="/games/all">New</a> <!-- Change later -->
+    <a href="/games/all" class="active">Home</a>
+    <a href="/games/new-uploads">New</a>
     <a href="/games/upload_game">Upload</a>
     <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
     <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->

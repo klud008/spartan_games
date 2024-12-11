@@ -74,6 +74,18 @@ public class GameController {
 
     }
 
+    @GetMapping("/new-uploads")
+    public String getGamesByNewest(Model model) {
+
+        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
+        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        model.addAttribute("gamesList", service.getGamesByNewest());
+
+
+        return "new-uploads";
+    }
+
     /**
      * Get a specific Game by Id.
      * http://localhost:8080/games/2
@@ -215,7 +227,7 @@ public class GameController {
     }
 
     @GetMapping("/reviews/{gameId}")
-    public List<Review> getMethodName(@PathVariable long gameId) {
+    public List<Review> getMethodName(@PathVariable int gameId) {
         
         return reviewService.getReviewsByGameId(gameId);
     }

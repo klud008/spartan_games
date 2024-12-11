@@ -24,7 +24,8 @@ public class SecurityConfig {
                 .csrf().disable() // Disable CSRF for testing; enable in production with proper setup
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/sign-up", "/user/new-user", "/styles/**", "/js/**", "/images/**").permitAll() // Allow access to signup page and static resources
-                        .anyRequest().authenticated() // All other pages require authentication
+                        .requestMatchers("/user/admin/**", "/report/admin/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated() // All other pages require normal authentication
                 )
                 .formLogin(form -> form
                         .loginPage("/login") // Custom login page URL
@@ -32,7 +33,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/games/all", true) // Redirect after successful login
                         .failureUrl("/login?error=true") // Redirect after login failure
                         .permitAll() // Allow access to the login page
-                )
+                ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
@@ -47,61 +48,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /*
-    private CustomUserDetailsService userDetailsService;
-
-
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests()
-                .requestMatchers("/signup").permitAll() // Allow access to registration
-                .anyRequest().authenticated()
-                .and()
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .successHandler(new CustomAuthenticationSuccessHandler())
-                        .permitAll()
-                ).exceptionHandling((x) -> x.accessDeniedPage("/403"));
-    }
-
-    /*
-
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
-        requestCache.setMatchingRequestParameterName(null);
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorize) -> authorize
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                                DispatcherType.ERROR).permitAll()
-                        .anyRequest().authenticated()
-                )
-
-                .authorizeRequests()
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .successHandler(new CustomAuthenticationSuccessHandler())
-                        .permitAll()
-                ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
-                .logout((logout) -> logout.permitAll())
-                .requestCache((cache) -> cache
-                        .requestCache(requestCache)
-                );
-
-        return http.build();
-    }
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(
-                passwordEncoder());
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    } */
 }

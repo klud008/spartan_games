@@ -26,7 +26,7 @@
 <div class="topnav">
   <!-- Topnav options -->
   <a href="/games/all">Home</a>
-  <a href="/games/all">New</a> <!-- Change later -->
+  <a href="/games/new-uploads">New</a>
   <a href="/games/upload_game">Upload</a>
   <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
   <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
@@ -52,23 +52,11 @@
 -->
 
 
-  <!-- Review Section -->
-  <div class="reviews-section">
-    <h2>Reviews</h2>
-
-    <!-- Existing Reviews -->
-    <div class="reviews" th:each="review : ${reviews}">
-      <div class="review">
-        <p th:text="${review.author}">Reviewer Id</p>
-        <p th:text="${review.content}">Review Body</p>
-        <p>Rating: <span th:text="${review.rating}">⭐⭐⭐⭐☆</span></p>
-      </div>
-      <br>
-    </div>
-
-
     <h3>Add Your Review</h3>
-    <form id="review-form">
+    <form id="review-form" action="/reviews/add" method="post">
+      <input name="userId" th:value="${user.userId}" hidden>
+      <input name="username" th:value="${user.username}" hidden>
+      <input name="gameId" th:value="${game.gameId}" hidden>
       <div class="form-group">
         <label for="review-text">*Review:</label>
         <textarea id="review-text" name="review-text" rows="5" required></textarea>
@@ -83,16 +71,73 @@
           <option value="1">👍</option>
         </select>
       </div>
-      <button type="submit">Submit Review</button>
+      <button class="submitButton" type="submit">Submit Review</button>
     </form>
-    <div class="report">
-      <a href="">Report This Game</a>
+    <div>
+      <a onclick="document.getElementById('id01').style.display='block'" class="link">Report This Game</a>
+    </div>
+
+    <!-- Review Section -->
+    <div class="reviews-section">
+      <h2>Reviews</h2>
+
+      <!-- Existing Reviews -->
+      <div class="reviews" th:each="review : ${reviews}">
+        <div class="review">
+          <p> <a  class="link"
+                  data-th-href="@{/user/{userId}(userId=${review.userId})}"
+                  th:text="${review.username}">
+            Username</a>
+          </p>
+          <p> <span th:text="'Rating: ' + ${review.rating} + ' 👍'"></span> </p>
+          <p th:text="${review.comment}">Review Body</p>
+        </div>
+        <br>
+      </div>
     </div>
 
   </div>
 
+<!-- Report prompt (for game) -->
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="container" action="/report/new" method="post">
+    <div class="modalContainer">
+      <h1>Submit a report?</h1>
 
+      <input type="text" id="userId" name="userId"  data-th-value="${user.userId}" hidden/>
+      <input type="text" id="contentId" name="contentId"  data-th-value="${game.gameId}" hidden/>
+      <input type="text" id="contentType" name="contentType" value="GAME" hidden/>
+
+      <div class="form-group">
+        <label for="description">Reason for the report:</label>
+        <textarea id="description" type="text" name="reason"></textarea>
+      </div>
+
+      <div>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="reportbtn">Cancel</button>
+        <button type="submit" class="reportbtn">Submit report</button>
+      </div>
+    </div>
+  </form>
 </div>
 
 </body>
+
+<!-- ---------------------------- -->
+<!-- ----- JAVASCRIPT STUFF ----- -->
+<!-- ---------------------------- -->
+<script>
+
+  // Get the modal
+  var modal = document.getElementById('id01');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
 </html>

@@ -2,7 +2,9 @@ package group8.spartan_games_app.game;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,13 @@ public class GameService {
      */
     public List<Game> getGamesByName(String keyword) {
         return gameRepository.getGamesByName(keyword);
+    }
+
+    public List<Game> getGamesByNewest() {
+        return gameRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Game::getCreatedAt).reversed())
+                .collect(Collectors.toList()) ;
     }
 
     /**

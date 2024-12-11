@@ -35,6 +35,7 @@ body {
         display: block;
         text-align: left;
         width: 100%;
+        width: 100%;
         margin: 0;
         padding: 14px;
     }
@@ -197,12 +198,20 @@ div.desc {
 .sign-up-option {
     margin-bottom: 25px;
     float: right;
+    color: white;
 }
 
 .submitButton {
-    color: #25242a;
-    border-color #25242a;
+    color: #f1f1f1;
+    border-color: #f1f1f1;
     border-radius: 4px;
+    background-color: #1a191f;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+.submitButton:hover {
+    cursor: pointer;
 }
 
 /*------------------*/
@@ -315,7 +324,7 @@ div.desc {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
+  background-color: #474e5d80;
   padding-top: 50px;
 }
 
@@ -393,6 +402,15 @@ hr {
     background-color: #09080f;
 }
 
+.link {
+    color: #f1f1f1;
+    text-decoration: underline;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
 /*----------------------*/
 /* < REPORT LIST PAGE > */
 /*----------------------*/
@@ -420,4 +438,14 @@ hr {
 #reportList tr.header {
     /* Add a grey background color to the table header */
     background-color: #09080f;
+}
+
+.reportbtn {
+  float: left;
+  width: 50%;
+  color: #f1f1f1;
+  border-color: #f1f1f1;
+  background-color: #1a191f;
+  padding: 4px;
+  margin-bottom: 5px;
 }

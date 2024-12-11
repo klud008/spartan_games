@@ -42,8 +42,21 @@ public class ReportController {
      * @param report the new Report object.
      */
     @PostMapping("/new")
-    public List<Report> addNewReport(@RequestBody Report report) {
+    public String addNewReport(@RequestParam("userId") int userId,
+                               @RequestParam("contentId") int contentId,
+                               @RequestParam("contentType") String contentType,
+                               @RequestParam("reason") String reason) {
+
+        Report report = new Report();
+
+        report.setUserId(userId);
+        report.setContentId(contentId);
+        report.setContentType(contentType);
+        report.setReason(reason);
+        report.setStatus("PENDING");
+
         service.addNewReport(report);
-        return service.getAllReports();
+
+        return "redirect:/games/" + contentId;
     }
 }

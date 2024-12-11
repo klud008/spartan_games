@@ -20,10 +20,13 @@ public class Review {
     private int reviewId;
 
     @Column(nullable = false)
-    private long userId;
+    private int userId;
 
     @Column(nullable = false)
-    private long gameId;
+    private String username;
+
+    @Column(nullable = false)
+    private int gameId;
 
     @Column(nullable = false)
     private int rating;
@@ -40,15 +43,16 @@ public class Review {
 
     }
 
-    public Review(int reviewId, long userId, long gameId, int rating, String comment) {
+    public Review(int reviewId, int userId, String username, int gameId, int rating, String comment) {
         this.reviewId = reviewId;
         this.userId = userId;
+        this.username = username;
         this.gameId = gameId;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public long getReviewId() {
+    public int getReviewId() {
         return reviewId;
     }
 
@@ -56,19 +60,27 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public long getGameId() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getGameId() {
         return gameId;
     }
 
-    public void setGameId(long gameId) {
+    public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 
