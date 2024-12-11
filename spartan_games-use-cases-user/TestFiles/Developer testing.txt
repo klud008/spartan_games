@@ -1,0 +1,47 @@
+On Postman:
+
+Post:
+http://localhost:8080/games/upload_game
+
+Body ---> form - data:
+Keys: title, description, devId, gameFile ( zip file),  thumbnailFile (file)
+
+
+Put:
+http://localhost:8080/games/update/{game Id}
+
+Body ---> form - data:
+Keys: title, description, devId, gameFile ( zip file),  thumbnailFile (file)
+*none required.
+
+
+delete:
+http://localhost:8080/games/delete/{gameId}
+
+
+
+get:
+http://localhost:8080/games/developer/{devId}
+
+
+get: 
+http://localhost:8080/games/all
+
+
+
+get:
+http://localhost:8080/games/download/{gameId}
+
+post:
+http://localhost:8080/reviews/create
+{
+    "userId": 1,
+    "gameId": 2,
+    "rating": 5,
+    "comment": "Great game!"
+}
+
+get:
+reviews by game:
+http://localhost:8080/games/reviews/gameId
+

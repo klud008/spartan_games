@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Update</title>
+    <link rel="stylesheet" href="uploadstyles.css">
+</head>
+
+<body>
+<!-- --------------------------------- -->
+<!-- ----- NAVIGATION MENUS / UI ----- -->
+<!-- --------------------------------- -->
+
+<!-- Top banner/header -->
+<div class="header">
+    <img src="images/spartan-games-logo.png" class="logo" alt="Spartan Games">
+    <div class="wrapper">
+        <div class="searchbar">
+            <input id="searchqueryinput" type="text" placeholder="Search">
+            <button id="searchquerysubmit" type="submit">
+                <img src="images/search.png" width="24px" height="24px">
+            </button>
+        </div>
+
+    </div>
+    <a href="profile.html">  <img src="images/example.png" alt="Avatar" class="avatar"> </a>
+</div>
+
+<!-- Sidebar -->
+<div class="sidenav">
+    <!-- Sidebar options -->
+    <a href="home.html">Home</a>
+    <a href="featured.html">Featured</a>
+    <a href="trending.html">Trending</a>
+    <a href="you.html">For you</a>
+    <a href="upload.html">Upload</a>
+</div>
+
+<!-- All nav stuff is above. Should be the same for every page. -->
+
+<!-- --------------------------------- -->
+<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
+<!-- --------------------------------- -->
+
+
+
+<div class="uipadding">
+    <div class="container">
+        <h1>Update Your Game</h1>
+        <form id="upload-form">
+            <div class="form-group">
+                <label for="game-file">Update Game Files:</label>
+                <input type="file" id="game-file" name="game-file" accept=".zip">
+            </div>
+            <div class="form-group">
+                <label for="image-file">Edit Game Image:</label>
+                <input type="file" id="image-file" name="image-file" accept="image/*" >
+            </div>
+            <div class="form-group">
+                <label for="description">*Edit Description:</label>
+                <textarea id="description" name="description" rows="5" required placeholder="Old Game Description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tags">Edit Tags:</label>
+                <input type="text" id="tags" name="tags" placeholder="Adventure, Action, Multiplayer">
+            </div>
+            <button type="submit">Update Game</button>
+        </form>
+
+        <div class="reviews-section"></div>
+            <h2>Reviews</h2>
+
+            <p>Average Rating:⭐⭐⭐☆☆</p><br>
+
+            <!-- Existing Reviews -->
+            <div class="reviews">
+                <div class="review">
+                    <p>Bob - "Very cool game "</p>
+                    <p>Rating:⭐⭐⭐⭐☆</p>
+                </div><br>
+                <div class="review"></div>
+                    <p>Jane - "Terrible Game "</p>
+                    <p>Rating:⭐☆☆☆☆</p>
+                </div>
+                <br>
+
+                <div class="delete">
+                    <a href="">Delete Game</a>
+                </div>
+
+                
+            </div>
+
+    </div>
+</div>
+
+    
+</body>
+</html>

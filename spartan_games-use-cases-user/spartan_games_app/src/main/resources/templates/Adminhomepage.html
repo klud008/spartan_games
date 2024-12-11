@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Spartan Games - Home</title>
+  <link rel="stylesheet" href="../static/styles/styles.css" th:href="@{/styles/styles.css}">
+</head>
+<body>
+
+<!-- Top banner/header -->
+<div class="header">
+  <img th:src="@{/images/spartan-games-logo.png}" alt="Spartan Games Logo">
+  <input type="text" id="searchQuery" placeholder="Search..." title="search">
+  <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
+</div>
+
+<!-- Sidebar -->
+<div class="topnav">
+  <!-- Sidebar options -->
+  <a th:href="@{/new-home}" class="active">Home</a>
+  <a th:href="@{/featured}">Manage Users</a>
+  <a th:href="@{/trending}">Manage Games</a>
+  <a th:href="@{/you}">Reports</a>
+  <a th:href="@{/games/upload_game}">settings</a>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a href="gamepage.html">
+      <img src="images/example.png" alt="Cinque Terre">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a href="gamepage.html">
+      <img src="images/example.png" alt="Forest">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a href="gamepage.html">
+      <img src="images/example.png" alt="Northern Lights">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a href="gamepage.html">
+      <img src="images/example.png" alt="Mountains">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+</body>
+</html>
