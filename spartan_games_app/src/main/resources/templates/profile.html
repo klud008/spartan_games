@@ -40,12 +40,9 @@
 <!-- --------------------------------- -->
 <!-- ----- PAGE-SPECIFIC CONTENT ----- -->
 <!-- --------------------------------- -->
-
-
   <div class="content">
     <!-- User's profile 'card' -->
     <div class="card">
-
       <img th:src="@{/user/{profileUserId}/thumbnail(profileUserId=${profileUser.userId})}" onerror="this.src='/static/images/placeholder.jpg';" th:alt="${profileUser.username}" class="profileimg">
       <h1 data-th-text="${profileUser.username}"></h1>
       <p class="description" text-indent="10px" data-th-text="${profileUser.description}"></p>
@@ -78,7 +75,6 @@
     <div class="clearfix"></div>
 
   </div>
-
 
 </body>
 </html>

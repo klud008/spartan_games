@@ -1,5 +1,4 @@
 package group8.spartan_games_app.user;
-
 import group8.spartan_games_app.game.Game;
 import group8.spartan_games_app.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;

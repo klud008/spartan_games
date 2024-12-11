@@ -25,11 +25,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import group8.spartan_games_app.review.Review;
 import group8.spartan_games_app.review.ReviewService;
+import group8.spartan_games_app.user.User;
+import group8.spartan_games_app.user.UserService;
 
 
 /**
@@ -99,7 +100,6 @@ public class GameController {
 
         userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
         // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
-
         Game game = service.getGameById(gameId);
         List<Review> reviews = reviewService.getReviewsByGameId(gameId);
 
@@ -111,13 +111,13 @@ public class GameController {
 
     @GetMapping("/developer/{devId}")
     public String  getByDeveloper(@PathVariable int devId, Model model) {
-
         userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
         // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
 
         User developer = userService.getUserById(devId);
 
         List<Game> developerGames = service.getGameByDev(devId);
+
 
         model.addAttribute("games", developerGames);
         model.addAttribute("developer", developer);
@@ -152,6 +152,11 @@ public class GameController {
         return "upload";
     }
 
+    @GetMapping("/upload_game")
+        public String showUploadForm(Model model) {
+        return "upload"; 
+}
+
     /**
      * Create a new Game entry.
      * http://localhost:8080/games/upload_game
@@ -171,7 +176,6 @@ public class GameController {
         String thumbnailFileName = thumbnailFile.getOriginalFilename();
 
         service.addNewGame(title, description, devId, gameFile, thumbnailFile, gameFileName, thumbnailFileName);
-
 
         return "redirect:/games/developer/" + devId;
     }
