@@ -137,9 +137,6 @@ div.desc {
   text-align: center;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .responsive {
   padding: 0 6px;
@@ -165,6 +162,166 @@ div.desc {
   display: table;
   clear: both;
 }
+
+.game-title{
+
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.game-description{
+  text-align: left;
+  font-size: 1.5rem;
+  
+}
+
+.download-section{
+  text-align: center;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.download-section p{
+
+  font-size: 1rem;
+
+}
+
+
+.game-container{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  max-width: 80%;
+  margin: 100px auto;
+  padding: 50px;
+  background-color: #1a191f;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+.reviews-section{
+
+  align-self: start;
+  width: 100%;
+  
+}
+
+.reviews {
+  margin-top: 20px;
+}
+
+.review {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.edit {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e29c00;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: start;
+}
+
+.delete {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: start;
+}
+
+
+
+.game-image{
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+.game-thumbnail:hover {
+  transform: scale(1.05);  
+}
+.gallery:hover{
+
+  transform: scale(1.05);  
+
+}
+
+.responsive{
+
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px;
+
+  
+}
+
+.gallery{
+
+  flex: 1 1 calc(33.33% - 20px); 
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 20px;
+  width: 500px;
+  height: 450px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  border-radius: 30px;
+  overflow: hidden;
+
+}
+
+.game-thumbnail {
+  height: 300px !important;
+  width: 85% !important;
+  object-fit: cover;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 30px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.desc {
+  margin-bottom: 10px;
+  padding: 15px;
+  align-self: center;
+  text-align: center;
+  color: #fff; 
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.5);  
+  border-radius: 15px; 
+}
+
+
+
 
 /*----------------*/
 /* < LOGIN PAGE > */

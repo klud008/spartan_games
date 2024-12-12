@@ -54,6 +54,9 @@ public class Game {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(nullable = true)
+    private Double  rating;
+
 
     public Game() {
         
@@ -112,7 +115,7 @@ public class Game {
     }
 
     @JsonIgnore
-    public byte[] getThumbnailName() {
+    public byte[] getThumbnailData() {
         return thumbnailData;
     }
 
@@ -151,5 +154,13 @@ public class Game {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }

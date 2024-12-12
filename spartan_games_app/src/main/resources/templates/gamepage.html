@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Game Info</title>
-  <link rel="stylesheet" th:href="@{/styles/styles.css}">
+  <link rel="stylesheet" href="..//static/styles/styles.css" th:href="@{/styles/styles.css}">
 
   <!-- th:href="@{/styles/styles.css}" -->
   <!-- href="/static/styles/styles.css" -->
+
+
+
+  <!-- th:href="@{/styles/styles.css}" -->
+  <!-- href="/static/styles/styles.css" -->
+
 
 </head>
 <body>
@@ -26,12 +32,103 @@
 <div class="topnav">
   <!-- Topnav options -->
   <a href="/games/all">Home</a>
+
   <a href="/games/new-uploads">New</a>
+
   <a href="/games/upload_game">Upload</a>
   <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
   <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
+<div class="game-container">
+  <div class = "edit"> <a th:href="@{/games/update/{gameId}(gameId=${game.gameId})}">Update</a></div>
+  <div class = "delete"> <a th:href="@{/games/delete/{gameId}(gameId=${game.gameId})}">DELETE</a></div>
+  <h1 th:text="${game.title}">Epic Game</h1>
+
+  <!-- Game Information Section -->
+  <div class="game-info">
+    <div class="game-image">
+      <img th:src="@{/games/{gameId}/thumbnail(gameId=${game.gameId})}" 
+      th:alt="${game.title}" class="game-image">
+      <div class="download-section">
+        <a th:href="@{/games/download/{gameId}(gameId=${game.gameId})}" class="download-button">Download Game</a>
+        <p>Available on: Windows</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="devInfo"> 
+   By: <a th:text="${dev.username}" th:href="@{/user/{userId}(userId=${dev.userId})}" >DevName</a>
+
+  </p>
+  <p><strong>Description:</strong> <span th:text="${game.description}">This is the game description.</span></p>
+  <!---- <p><strong>Tags:</strong> Adventure, Action, Multiplayer</p>
+-->
+
+
+  <!-- Review Section -->
+  <div class="reviews-section">
+    <h2>Rating: <span th:text="${game.rating}"></span></h2>
+    <h2>Reviews</h2>
+    
+
+    <!-- Existing Reviews -->
+    <div class="reviews" th:each="review : ${reviews}">
+      <div class="review">
+        <p>
+          <a th:href="@{/user/{userId}(userId=${review.userId})}" th:text="${review.username}">Reviewer Id</a>
+        </p>
+        <p>Rating:
+          <span  th:switch="${review.rating}">
+              <span  th:case="1">⭐☆☆☆☆</span >
+              <span  th:case="2">⭐⭐☆☆☆</span >
+              <span  th:case="3">⭐⭐⭐☆☆</span >
+              <span  th:case="4">⭐⭐⭐⭐☆</span >
+              <span  th:case="5">⭐⭐⭐⭐⭐</span >
+          </span >
+      </p>
+        <p th:text="${review.comment}">Review Body</p>
+      </div>
+      <br>
+    </div>
+
+    <h3>Add Your Review</h3>
+    <form id="review-form" th:action="@{/reviews/add}" method="post">
+      <!-- Hidden fields to pass userId, username, and gameId -->
+      <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
+      <input type="hidden" id="username" name="username" th:value="${user.username}" />
+      <input type="hidden" id="gameId" name="gameId" th:value="${game.gameId}" />
+  
+      <div class="form-group">
+          <label for="review-text">*Review:</label>
+          <textarea id="review-text" name="review-text" rows="5" required></textarea>
+      </div>
+  
+      <div class="form-group">
+          <label for="rating">*Rating:</label>
+          <select id="rating" name="rating" required>
+              <option value="5">👍👍👍👍👍</option>
+              <option value="4">👍👍👍👍</option>
+              <option value="3">👍👍👍</option>
+              <option value="2">👍👍</option>
+              <option value="1">👍</option>
+          </select>
+      </div>
+  
+      <button type="submit">Submit Review</button>
+  </form>
+    <div class="report">
+      <a href="">Report This Game</a>
+    </div>
+
+  </div>
+
+
+</div>
+
+</body>
+</html>
+=======
 <div class="container">
   <div class = "edit"> UPDATE</div>
   <h1 th:text="${game.title}">Epic Game</h1>
@@ -141,3 +238,4 @@
 </script>
 
 </html>
+

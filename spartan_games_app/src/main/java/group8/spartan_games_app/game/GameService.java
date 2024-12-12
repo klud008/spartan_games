@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import group8.spartan_games_app.review.Review;
+import group8.spartan_games_app.review.ReviewService;
+
 /**
  * GameService.java
  * Centralizes data access to the Game Database.
@@ -19,6 +22,9 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private ReviewService reviewService;
 
 
     /**
@@ -132,6 +138,26 @@ public class GameService {
         gameRepository.save(existing);
     }
 
+    public void updateGameRating(int gameId) {
+
+    Game existing = getGameById(gameId);
+
+    // get all reviews for the game
+    List<Review> reviews = reviewService.getReviewsByGameId(gameId);
+    
+    double totalRating = 0;
+    for (Review review : reviews) {
+        totalRating += review.getRating();
+        System.out.println(review.getComment() + ":  " + review.getRating());
+    }
+    
+    double averageRating = totalRating / reviews.size(); 
+    
+    existing.setRating((Double)averageRating);
+    
+    gameRepository.save(existing);
+}
+
     /**
      * Delete a unique Game.
      *
@@ -140,4 +166,5 @@ public class GameService {
     public void deleteGameById(int gameId) {
         gameRepository.deleteById(gameId);
     }
+
 }

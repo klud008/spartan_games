@@ -26,7 +26,15 @@ public class ReviewService {
      *
      * @param review the new Review to add.
      */
-    public void addNewReview(Review review) {
+    public void addNewReview(int userId, String username, int gameId, int rating, String comment) {
+
+        Review review = new Review();
+
+        review.setUserId(userId);
+        review.setUsername(username);
+        review.setGameId(gameId);
+        review.setRating(rating);
+        review.setComment(comment);
         
         if (review.getCreatedAt() == null) {
             review.setCreatedAt(LocalDateTime.now());
