@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
+
+    <!-- th:href="@{/styles/styles.css}" -->
+    <!-- href="/static/styles/styles.css" -->
+   
+</head>
+<body>
+
+<!-- --------------------------------- -->
+<!-- ----- NAVIGATION MENUS / UI ----- -->
+<!-- --------------------------------- -->
+
+<!-- Top banner/header -->
+<div class="header">
+    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+    <form action="/games/search" method="get">
+        <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> <!--onkeyup="searchFunction()"-->
+    </form>
+    <a th:href="@{/user/{userId}(userId=${user.userId})}">
+        <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+    </a>
+</div>
+
+<!-- Topnav -->
+<div class="topnav">
+    <!-- Topnav options -->
+    <a href="/games/all">Home</a>
+    <a href="/games/new-uploads">New</a>
+    <a href="/games/upload_game">Upload</a>
+    <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+    <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+</div>
+
+<!-- All nav stuff is above. Should be the same for every page. -->
+
+<!-- --------------------------------- -->
+<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
+<!-- --------------------------------- -->
+
+<div class="container">
+    <h1>Edit Account</h1>
+
+    <!-- All the stuff for editing the account -->
+    <form action="/user/edit" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" id="newThumbnailData" name="newThumbnailData">
+        </div>
+
+        <div>
+            <input type="text" id="userId" name="userId"  data-th-value="${user.userId}" hidden/>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username (cannot change):</label>
+            <input id="username" type="text" name="username" data-th-value="${user.username}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" type="text" name="email" data-th-value="${user.email}">
+
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" type="text" name="description" data-th-text="${user.description}"></textarea>
+
+        </div>
+        <input type="submit" value="Submit" class="submitButton">
+    </form>
+    <button float="right" onclick="document.getElementById('id01').style.display='block'">Delete account</button>
+
+</div>
+
+<!-- Are you sure? prompt -->
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" data-th-action="@{/user/delete/{userId}(userId=${user.userId})}">
+        <div class="modalContainer">
+            <h1>Delete your profile?</h1>
+            <p>Are you sure you want to delete your account? This CANNOT be undone.</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="submit" class="deletebtn">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<!-- ---------------------------- -->
+<!-- ----- JAVASCRIPT STUFF ----- -->
+<!-- ---------------------------- -->
+<script>
+
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+</html>

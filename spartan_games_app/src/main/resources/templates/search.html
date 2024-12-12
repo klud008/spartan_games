@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../static/styles/styles.css" th:href="@{/styles/styles.css}">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
     <!-- th:href="@{/styles/styles.css}" -->
     <!-- href="/static/styles/styles.css" -->
@@ -36,16 +36,13 @@
 <div class="responsive" data-th-each="game: ${gamesList}">
     <div class="gallery">
         <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-            <img th:src="@{/games/{gameId}/thumbnail(gameId=${game.gameId})}" 
-                 th:alt="${game.title}" class="game-thumbnail">
+            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
         </a>
-        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}" class="desc-link">
-            <div class="desc" data-th-text="${game.title}"></div>
-        </a>
-        </div>
+        <div class="desc" data-th-text="${game.title}"></div>
     </div>
 </div>
 
 <div class="clearfix"></div>
+
 </body>
 </html>

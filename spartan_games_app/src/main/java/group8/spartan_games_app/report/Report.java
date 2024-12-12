@@ -1,5 +1,6 @@
 package group8.spartan_games_app.report;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -16,13 +17,13 @@ import jakarta.persistence.Table;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long reportId;
+    private int reportId;
 
     @Column(nullable = false)
-    private long userId;
+    private int userId;
 
     @Column(nullable = false)
-    private long contentId;
+    private int contentId;
 
     @Column(nullable = false)
     private String contentType;
@@ -33,16 +34,19 @@ public class Report {
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    private String createdAt;
+    @CreatedDate
+    @Column(nullable = false, updatable= false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String resolvedAt;
 
 
-    public Report() {}
+    public Report() {
+        this.createdAt = LocalDateTime.now();
+    }
 
-    public Report(long reviewId, long userId, long contentId, String contentType, String reason, String status, String createdAt, String resolvedAt) {
+    public Report(int reviewId, int userId, int contentId, String contentType, String reason, String status, LocalDateTime createdAt, String resolvedAt) {
         this.reportId = reviewId;
         this.userId = userId;
         this.contentId = contentId;
@@ -53,27 +57,27 @@ public class Report {
         this.resolvedAt = resolvedAt;
     }
 
-    public long getReportId() {
+    public int getReportId() {
         return reportId;
     }
 
-    public void setReportId(long reportId) {
+    public void setReportId(int reportId) {
         this.reportId = reportId;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public long getContentId() {
+    public int getContentId() {
         return contentId;
     }
 
-    public void setContentId(long contentId) {
+    public void setContentId(int contentId) {
         this.contentId = contentId;
     }
 
@@ -101,11 +105,11 @@ public class Report {
         this.status = status;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

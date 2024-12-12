@@ -18,4 +18,5 @@ public interface GameRepository  extends JpaRepository<Game, Integer> {
     List<Game> getGamesByName(@Param("keyword") String keyword);
 
     List<Game> findByDevId(int devId);
+
 }

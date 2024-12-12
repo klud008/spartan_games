@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../static/styles/styles.css" th:href="@{/styles/styles.css}">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
     <!-- th:href="@{/styles/styles.css}" -->
     <!-- href="/static/styles/styles.css" -->
@@ -32,20 +32,8 @@
     <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
-<!-- Image gallery stuff -->
-<div class="responsive" data-th-each="game: ${gamesList}">
-    <div class="gallery">
-        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-            <img th:src="@{/games/{gameId}/thumbnail(gameId=${game.gameId})}" 
-                 th:alt="${game.title}" class="game-thumbnail">
-        </a>
-        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}" class="desc-link">
-            <div class="desc" data-th-text="${game.title}"></div>
-        </a>
-        </div>
-    </div>
-</div>
+<!-- Just the message lol -->
+<h1>You don't have permission to access this page. Sorry!</h1>
 
-<div class="clearfix"></div>
 </body>
 </html>

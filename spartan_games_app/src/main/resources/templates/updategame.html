@@ -1,87 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Update</title>
-    <link rel="stylesheet" href="../static/styles/uploadstyles.css" th:href="@{/styles/uploadstyles.css}">
-</head>
+  <meta charset="UTF-8">
+  <title>Upload</title>
+  <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
+
+
+</head>
 <body>
-<!-- --------------------------------- -->
-<!-- ----- NAVIGATION MENUS / UI ----- -->
-<!-- --------------------------------- -->
 
 <!-- Top banner/header -->
 <div class="header">
-    <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
-    <div class="wrapper">
-        <div class="searchbar">
-            <input id="searchqueryinput" type="text" placeholder="Search">
-            <button id="searchquerysubmit" type="submit">
-                <img src="images/search.png" width="24px" height="24px">
-            </button>
-        </div>
-        <a th:href="@{/games/developer/1}">  <img th:src="@{/images/example.png}" alt="Avatar" class="avatar"> </a>
-    </div>
+  <img th:src="@{/images/spartan-games-logo.png}" class="logo" alt="Spartan Games">
+  <form action="/games/search" method="get">
+    <input type="text" id="searchQuery" name="query" placeholder="Search..." title="search"> 
+  </form>
+  <a th:href="@{/user/{userId}(userId=${user.userId})}">
+    <img th:src="@{/user/{userId}/thumbnail(userId=${user.userId})}" alt="Profile" class="avatar">
+  </a>
 </div>
 
-<!-- Sidebar -->
-<div class="sidenav">
-    <!-- Sidebar options -->
-    <a th:href="@{/games/home }" class="active">Home</a>
-    <a th:href="@{/featured}">Featured</a>
-    <a th:href="@{/trending}">Trending</a>
-    <a th:href="@{/you}">For you</a>
-    <a th:href="@{/games/upload_game}">Upload</a>
+<!-- Topnav -->
+<div class="topnav">
+  <!-- Topnav options -->
+  <a href="/games/all">Home</a>
+  <a href="/games/new-uploads">New</a>
+  <a href="/games/upload_game" class="active">Upload</a>
+  <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+  <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
+<!-- Stuff for game upload -->
+<div class="container">
+  <h1>Update Your Game</h1>
+  <form th:action="@{/games/update/{gameId}(gameId=${game.gameId})}" 
+                  method="post" 
+                  enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Game Title:</label>
+                    <input type="text" 
+                           id="title" 
+                           name="title" 
+                           th:value="${game.title}" 
+                           placeholder="Enter new game title">
+                </div>
+                <div class="form-group">
+                    <label for="description">Game Description:</label>
+                    <textarea id="description" 
+                              name="description" 
+                              rows="5" 
+                              placeholder="Enter new game description"
+                              th:text="${game.description}"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gameFile">Update Game File:</label>
+                    <input type="file" 
+                           id="gameFile" 
+                           name="gameFile" 
+                           accept=".zip,.jar">
+                </div>
+                
+                <div class="form-group">
+                    <label for="thumbnailFile">Update Thumbnail:</label>
+                    <input type="file" 
+                           id="thumbnailFile" 
+                           name="thumbnailFile" 
+                           accept="image/*">
+                </div>
+                
+                <button type="submit">Update Game</button>
+            </form>
 
-<!-- All nav stuff is above. Should be the same for every page. -->
-
-<!-- --------------------------------- -->
-<!-- ----- PAGE-SPECIFIC CONTENT ----- -->
-<!-- --------------------------------- -->
-
-
-
-<div class="uipadding">
-    <div class="container">
-        <h1>Update Your Game</h1>
-        <form id="upload-form" th:action="@{/games/update}" method="post" enctype="multipart/form-data">
-            
-            <input type="hidden" name="gameId" th:value="${game.gameId}">
-            
-            <div class="form-group">
-                <label for="title">*Game Title:</label>
-                <input type="text" id="title" name="title" th:value="${game.title}" placeholder="Enter game title" required />
-            </div>
-
-           
-            <div class="form-group">
-                <label for="game-file">Update Game Files:</label>
-                <input type="file" id="gameFile" name="gameFile" accept=".zip">
-            </div>
-
-            
-            <div class="form-group">
-                <label for="image-file">Edit Game Image:</label>
-                <input type="file" id="thumbnailFile" name="thumbnailFile" accept="image/*">
-            </div>
-
-           
-            <div class="form-group">
-                <label for="description">*Edit Description:</label>
-                <textarea id="description" name="description" rows="5"  placeholder="Old Game Description" th:text="${game.description}"></textarea>
-            </div>
-
-            
-            <button type="submit">Update Game</button>
-        </form>
-    </div>
-</div>
-</div>
-
-    
 </body>
 </html>

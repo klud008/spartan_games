@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" th:href="@{/styles/styles.css}">
 
     <!-- th:href="@{/styles/styles.css}" -->
@@ -34,17 +34,9 @@
 <!-- ----- PAGE-SPECIFIC CONTENT ----- -->
 <!-- --------------------------------- -->
 
-<!-- <nav th:insert="~{./fragments/navigation :: #global-nav}"></nav> -->
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-
 <div class="container">
-    <h1>Please login before accessing our site.</h1>
-    <form th:action="@{/login}" method="post">
+    <h1>Create Account</h1>
+    <form action="/user/new-user" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
             <input id="username" type="text" name="username" required>
@@ -54,8 +46,12 @@
             <input id="password" type="password" name="password" required>
 
         </div>
-        <button type="submit" value="Sign In" class="submitButton">Sign In</button>
-        <a class="sign-up-option" href="/user/sign-up">Sign Up</a>
+        <div class="form-group">
+            <label for="email">Email (optional):</label>
+            <input id="email" type="text" name="email">
+
+        </div>
+        <input type="submit" value="Submit" class="submitButton">
     </form>
 </div>
 </body>

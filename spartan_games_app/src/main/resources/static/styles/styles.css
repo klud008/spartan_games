@@ -9,7 +9,7 @@ body {
     background: #25242a;
 }
 
-/* Add a black background color to the top navigation bar */
+/* Add a black background color to the top header */
 .header {
     overflow: hidden;
     background-color: #162443;
@@ -18,12 +18,12 @@ body {
 /* Style the search box inside the navigation bar */
 .header input[type=text] {
     float: left;
-    padding: 12px;
+    padding: 12px 12px 12px 40px;
     background-color: #09080f;
     border: none;
     border-radius: 12px;
     margin-top: 24px;
-    margin-left: 30px;
+    margin-left: 40px;
     font-size: 17px;
     color: white;
 }
@@ -34,6 +34,7 @@ body {
         float: none;
         display: block;
         text-align: left;
+        width: 100%;
         width: 100%;
         margin: 0;
         padding: 14px;
@@ -49,6 +50,7 @@ body {
 
 #searchQuery {
     background-image: url('/images/search.png'); /* Add a search icon to input */
+    background-size: 20px;
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
 }
@@ -113,8 +115,10 @@ body {
     text-decoration: none;
 }
 
-
-
+/*------------------*/
+/* < GAME DISPLAY > */
+/*------------------*/
+/* Image gallery (for game display */
 div.gallery {
   border: 1px solid #ccc;
 }
@@ -133,9 +137,6 @@ div.desc {
   text-align: center;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .responsive {
   padding: 0 6px;
@@ -160,4 +161,447 @@ div.desc {
   content: "";
   display: table;
   clear: both;
+}
+
+.game-title{
+
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.game-description{
+  text-align: left;
+  font-size: 1.5rem;
+  
+}
+
+.download-section{
+  text-align: center;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.download-section p{
+
+  font-size: 1rem;
+
+}
+
+
+.game-container{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  max-width: 80%;
+  margin: 100px auto;
+  padding: 50px;
+  background-color: #1a191f;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+.reviews-section{
+
+  align-self: start;
+  width: 100%;
+  
+}
+
+.reviews {
+  margin-top: 20px;
+}
+
+.review {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.edit {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e29c00;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: start;
+}
+
+.delete {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: start;
+}
+
+
+
+.game-image{
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+.game-thumbnail:hover {
+  transform: scale(1.05);  
+}
+.gallery:hover{
+
+  transform: scale(1.05);  
+
+}
+
+.responsive{
+
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px;
+
+  
+}
+
+.gallery{
+
+  flex: 1 1 calc(33.33% - 20px); 
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 20px;
+  width: 500px;
+  height: 450px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  border-radius: 30px;
+  overflow: hidden;
+
+}
+
+.game-thumbnail {
+  height: 300px !important;
+  width: 85% !important;
+  object-fit: cover;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 30px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.desc {
+  margin-bottom: 10px;
+  padding: 15px;
+  align-self: center;
+  text-align: center;
+  color: #fff; 
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.5);  
+  border-radius: 15px; 
+}
+
+
+
+/*----------------*/
+/* < LOGIN PAGE > */
+/*----------------*/
+
+.container {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 50px;
+  background-color: #1a191f;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input, .form-group textarea {
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 4px;
+    background-color: #25242a;
+    padding: 12px;
+    color: #f1f1f1;
+    display: block;
+    resize: vertical;
+    width: 100%;
+}
+
+.sign-up-option {
+    margin-bottom: 25px;
+    float: right;
+    color: white;
+}
+
+.submitButton {
+    color: #f1f1f1;
+    border-color: #f1f1f1;
+    border-radius: 4px;
+    background-color: #1a191f;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+.submitButton:hover {
+    cursor: pointer;
+}
+
+/*------------------*/
+/* < PROFILE PAGE > */
+/*------------------*/
+/* The little 'card' for the user's profile on their page */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin-top: 50px;
+    text-align: left;
+    padding: 20px;
+    text-wrap: wrap;
+    background-color: #1a191f;
+}
+
+/* The user's profile pic which is displayed on their page */
+.profileimg {
+    margin-left: -3px; /* Allows hspace to be used in the HTML doc and still have the text look nice */
+    margin-top: 0px;
+    margin-right: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    width: 110px;
+    height: 110px;
+    float: left;
+}
+
+/* User's description */
+.description {
+    color: grey;
+    font-size: 18px;
+}
+
+/* 'Edit profile' button */
+.modify {
+    float: right;
+    border-color: white;
+    border-radius: 20px;
+    background-color: #1a191f;
+    color: white;
+    padding: 8px 12px 8px 12px;
+}
+
+.sign-out {
+    color: red;
+}
+
+.sign-out:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/*-----------------------*/
+/* < EDIT PROFILE PAGE > */
+/*-----------------------*/
+.modal {
+    box-sizing: border-box
+}
+
+.modal h1, p {
+    padding-left: 20px;
+}
+
+/* Set a style for all modal buttons */
+.modal button {
+  color: white;
+  padding: 14px 20px;
+  margin: 12px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  opacity: 0.9;
+}
+
+.modal button:hover {
+  opacity:1;
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .deletebtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+  background-color: #f44336;
+}
+
+/* Add padding and center-align text to the container */
+.modalContainer {
+  padding: 16px;
+  text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d80;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #1a191f;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  border-radius: 20px;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .deletebtn {
+    width: 100%;
+  }
+}
+
+/*--------------------*/
+/* < USER LIST PAGE > */
+/*--------------------*/
+
+#userList {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    font-size: 18px; /* Increase font-size */
+}
+
+#userList a {
+    color: #f1f1f1;
+}
+
+#userList th, #userList td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#userList tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#userList tr.header {
+    /* Add a grey background color to the table header */
+    background-color: #09080f;
+}
+
+.link {
+    color: #f1f1f1;
+    text-decoration: underline;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+/*----------------------*/
+/* < REPORT LIST PAGE > */
+/*----------------------*/
+
+#reportList {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    font-size: 18px; /* Increase font-size */
+}
+
+#reportList a {
+    color: #f1f1f1;
+}
+
+#reportList th, #reportList td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#reportList tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#reportList tr.header {
+    /* Add a grey background color to the table header */
+    background-color: #09080f;
+}
+
+.reportbtn {
+  float: left;
+  width: 50%;
+  color: #f1f1f1;
+  border-color: #f1f1f1;
+  background-color: #1a191f;
+  padding: 4px;
+  margin-bottom: 5px;
 }
