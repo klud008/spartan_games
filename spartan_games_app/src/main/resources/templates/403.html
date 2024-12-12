@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -28,8 +28,8 @@
     <a href="/games/all" class="active">Home</a>
     <a href="/games/new-uploads">New</a>
     <a href="/games/upload_game">Upload</a>
-    <a href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
-    <a href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
+    <a sec:authorize="hasAuthority('ADMIN')" href="/user/admin/all">Users</a> <!-- Will only be visible to admins -->
+    <a sec:authorize="hasAuthority('ADMIN')" href="/report/admin/all">Reports</a> <!-- Will only be visible to admins -->
 </div>
 
 <!-- Just the message lol -->
