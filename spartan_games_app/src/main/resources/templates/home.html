@@ -42,7 +42,7 @@
                  th:alt="${game.title}" class="game-thumbnail">
         </a>
         <a th:href="@{/games/{gameId}(gameId=${game.gameId})}" class="desc-link">
-            <div class="desc" data-th-text="${game.title}"></div>
+            <div class="desc" data-th-text="${game.title}">Game Title</div>
         </a>
         </div>
 

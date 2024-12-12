@@ -2,14 +2,9 @@ package group8.spartan_games_app.game;
 
 
 import java.io.IOException;
-
 import java.io.InputStream;
-import java.util.Base64;
 import java.util.List;
 
-import group8.spartan_games_app.user.User;
-import group8.spartan_games_app.user.UserService;
-import group8.spartan_games_app.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -150,18 +145,9 @@ public class GameController {
 
         return "search";
 
-=======
-    }
-
-    @GetMapping("/upload_game")
-    public String showUploadForm(Model model) {
-
-        userController.addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
-        // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
-
-        return "upload";
 
     }
+
 
     @GetMapping("/upload_game")
     public String showUploadForm(Model model) {

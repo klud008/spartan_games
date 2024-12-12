@@ -1,10 +1,10 @@
 package group8.spartan_games_app.review;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import group8.spartan_games_app.game.GameService;
-
-=======
-import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -26,6 +23,9 @@ public class ReviewController {
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     /*@GetMapping("/all")
     public List<Review> getAllReviews() {
@@ -43,6 +43,16 @@ public class ReviewController {
                             @RequestParam("gameId") int gameId,
                             @RequestParam("rating") int rating,
                             @RequestParam("review-text") String comment) {
+
+        Optional<Review> existingReview = reviewRepository.findByUserIdAndGameId(userId, gameId);
+
+            if (existingReview.isPresent()) {
+            
+            return "redirect:/games/" + gameId + "?error=alreadyReviewed";
+            }
+
+
+        
 
         Review review = new Review();
         review.setUserId(userId);

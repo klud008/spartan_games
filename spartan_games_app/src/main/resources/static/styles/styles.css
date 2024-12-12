@@ -219,8 +219,13 @@ div.desc {
 .review {
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 2px solid #405797;
+  border-radius: 30px;
+}
+
+.review a{
+  color: #e29c00;
+
 }
 
 
@@ -235,6 +240,8 @@ div.desc {
   cursor: pointer;
   font-weight: bold;
   align-self: start;
+  text-decoration: none;
+  
 }
 
 .delete {
@@ -248,6 +255,7 @@ div.desc {
   cursor: pointer;
   font-weight: bold;
   align-self: start;
+  text-decoration: none;
 }
 
 
@@ -310,14 +318,20 @@ div.desc {
 }
 
 .desc {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   padding: 15px;
   align-self: center;
   text-align: center;
   color: #fff; 
   font-size: 1.2rem;
-  background-color: rgba(0, 0, 0, 0.5);  
-  border-radius: 15px; 
+  background-color:#e29c00;
+  border-radius: 20px; 
+}
+
+.devInfo a{
+  color: #e29c00;
+  font-weight: 900;
+
 }
 
 

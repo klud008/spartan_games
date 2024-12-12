@@ -36,11 +36,16 @@
 <div class="responsive" data-th-each="game: ${gamesList}">
     <div class="gallery">
         <a th:href="@{/games/{gameId}(gameId=${game.gameId})}">
-            <img th:src="@{/images/placeholderGame.png}" th:alt="${game.title}"> <!-- th:src="${game.thumbnailData}" -->
+
+            <img th:src="@{/games/{gameId}/thumbnail(gameId=${game.gameId})}" 
+                 th:alt="${game.title}" class="game-thumbnail">
         </a>
-        <div class="desc" data-th-text="${game.title}"></div>
+        <a th:href="@{/games/{gameId}(gameId=${game.gameId})}" class="desc-link">
+            <div class="desc" data-th-text="${game.title}">Game Title</div>
+        </a>
+        </div>
+
     </div>
-</div>
 
 <div class="clearfix"></div>
 

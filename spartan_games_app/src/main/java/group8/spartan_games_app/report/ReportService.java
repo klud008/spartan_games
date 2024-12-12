@@ -1,9 +1,10 @@
 package group8.spartan_games_app.report;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ReportService {
@@ -26,6 +27,7 @@ public class ReportService {
      * @param report the new Report to add.
      */
     public void addNewReport(Report report) {
+        report.setCreatedAt(LocalDateTime.now());
         reportRepository.save(report);
     }
 }
