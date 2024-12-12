@@ -1,7 +1,6 @@
 package group8.spartan_games_app.report;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -39,14 +38,14 @@ public class Report {
     private LocalDateTime createdAt;
 
     @Column(nullable = true)
-    private String resolvedAt;
+    private LocalDateTime resolvedAt;
 
 
     public Report() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Report(int reviewId, int userId, int contentId, String contentType, String reason, String status, LocalDateTime createdAt, String resolvedAt) {
+    public Report(int reviewId, int userId, int contentId, String contentType, String reason, String status, LocalDateTime createdAt, LocalDateTime resolvedAt) {
         this.reportId = reviewId;
         this.userId = userId;
         this.contentId = contentId;
@@ -113,11 +112,11 @@ public class Report {
         this.createdAt = createdAt;
     }
 
-    public String getResolvedAt() {
+    public LocalDateTime getResolvedAt() {
         return resolvedAt;
     }
 
-    public void setResolvedAt(String resolvedAt) {
+    public void setResolvedAt(LocalDateTime resolvedAt) {
         this.resolvedAt = resolvedAt;
     }
 

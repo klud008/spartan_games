@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Games</title>
+  <!-- Link to CSS if necessary -->
+  <link rel="stylesheet" href="/styles/managegame.css">
+</head>
+<body>
+<h1>Manage Games</h1>
+
+<!-- Add New Game Button -->
+<div>
+  <a href="/games/upload_game" class="btn btn-primary">Add New Game</a>
+</div>
+
+<!-- Games Table -->
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Developer ID</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterate through the list of games -->
+  <tr th:each="game : ${games}">
+    <td th:text="${game.id}"></td>
+    <td th:text="${game.title}"></td>
+    <td th:text="${game.description}"></td>
+    <td th:text="${game.devId}"></td>
+    <td>
+      <!-- View Game -->
+      <a th:href="@{'/games/' + ${game.id}}" class="btn btn-info">View</a>
+      <!-- Edit Game -->
+      <a th:href="@{'/games/update/' + ${game.id}}" class="btn btn-warning">Edit</a>
+      <!-- Delete Game -->
+      <form th:action="@{'/games/delete/' + ${game.id}}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Link to go back to the Admin Dashboard -->
+<a href="/api/users/admin">Back to Admin Dashboard</a>
+
+</body>
+</html>

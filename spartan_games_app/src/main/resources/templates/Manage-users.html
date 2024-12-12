@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="/styles/adminlook.css">
+
+
+<head>
+    <title>User Management</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>User Management</h1>
+
+<!-- Add New User -->
+<h2>Add New User</h2>
+<form action="/api/users/new_user" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="accountStatus">Account Status:</label>
+    <select id="accountStatus" name="accountStatus" required>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select><br><br>
+
+    <button type="submit">Add User</button>
+</form>
+
+<!-- User List -->
+<h2>All Users</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.accountStatus}"></td>
+        <td>
+            <!-- Update User -->
+            <form action="/api/users" th:action="@{/api/users/{userId}(userId=${user.userId})}" method="post">
+                <input type="hidden" name="_method" value="put" />
+                <label for="role">Role:</label>
+                <input type="text" name="role" placeholder="New Role" required>
+                <label for="accountStatus">Status:</label>
+                <select name="accountStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+
+            <!-- Delete User -->
+            <form action="/api/users" th:action="@{/api/users/{userId}(userId=${user.userId})}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" style="color: red;">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
