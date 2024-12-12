@@ -42,25 +42,7 @@
 
 <div class="game-container">
   <div class = "edit"> <a th:href="@{/games/update/{gameId}(gameId=${game.gameId})}">Update</a></div>
-  <button class="delete" float="right" onclick="document.getElementById('id01').style.display='block'">DELETE </button>
-
-  <div id="id01" class="modal">
-    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-    <form class="modal-content" data-th-action="@{/games/delete/{gameId}(gameId=${game.gameId})}">
-        <div class="modalContainer">
-            <h1>Delete your game?</h1>
-            <p>Are you sure you want to delete your game? This CANNOT be undone.</p>
-
-            <div class="clearfix">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                <button type="submit" class="deletebtn">Delete</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
+  <div class = "delete"> <a th:href="@{/games/delete/{gameId}(gameId=${game.gameId})}">DELETE</a></div>
   <h1 class="game-title" th:text="${game.title}">Epic Game</h1>
 
   <!-- Game Information Section -->
@@ -74,6 +56,8 @@
       </div>
     </div>
   </div>
+
+  
 
   <p class="devInfo"> 
    By: <a th:text="${dev.username}" th:href="@{/user/{userId}(userId=${dev.userId})}" >DevName</a>
@@ -147,6 +131,8 @@
     <div>
       <a onclick="document.getElementById('id01').style.display='block'" class="link">Report This Game</a>
     </div>
+
+  </div>
 
 
 <!-- Report prompt (for game) -->

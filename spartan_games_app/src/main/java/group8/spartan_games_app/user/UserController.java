@@ -1,21 +1,25 @@
 package group8.spartan_games_app.user;
-import group8.spartan_games_app.game.Game;
-import group8.spartan_games_app.game.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.security.core.Authentication;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import group8.spartan_games_app.game.GameService;
 
 //@RestController
 @Controller
@@ -91,6 +95,19 @@ public class UserController {
 
         addUserAttributes(model); // Adds all the necessary attributes of the current user to the page
         // It adds the attributes 'user' and 'thumbnailData', so don't repeat them after using this.
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User currentUser = userService.getUserByUsername(username);
+        // Gets the user
+        User user = userService.getUserById(profileUserId);
+    
+        System.out.println("CURRENT USER ID: " + currentUser.getUserId());
+        System.out.println("USER ID: " + user.getUserId());
+        if (user.getUserId() != currentUser.getUserId()) {
+            return "403";
+        }
+
 
         User profileUser = userService.getUserById(profileUserId);
 
